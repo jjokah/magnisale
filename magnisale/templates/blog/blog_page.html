@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  <p class="meta">{{ page.date }}</p>
+  {% if page.featured_image %}
+    <div class="featured-image">{% image page.featured_image width-800 %}</div>
+  {% endif %}
+  <div class="intro">{{ page.intro }}</div>
+  <div class="categories">
+    {% for category in page.categories.all %}<span class="badge bg-secondary">{{ category.name }}</span>{% endfor %}
+  </div>
+  <div class="blog-content">{{ page.body }}</div>
+  <p>
+    <a href="{{ page.get_parent.url }}">Return to blog</a>
+  </p>
+{% endblock content %}

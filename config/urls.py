@@ -10,6 +10,10 @@ from drf_spectacular.views import SpectacularAPIView
 from drf_spectacular.views import SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
 
+from wagtail import urls as wagtail_urls
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.documents import urls as wagtaildocs_urls
+
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
@@ -22,8 +26,10 @@ urlpatterns = [
     # User management
     path("users/", include("magnisale.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
-    # Your stuff: custom urls includes go here
-    # ...
+    # Wagtail URLs
+    path("cms/", include(wagtailadmin_urls)),
+    path("documents/", include(wagtaildocs_urls)),
+    path("blog/", include(wagtail_urls)),
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
