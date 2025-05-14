@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  My Journal Entries
+{% endblock title %}
+{% block content %}
+  <div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>My Journal Entries</h1>
+      <a href="{% url 'journal:create' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> New Entry
+      </a>
+    </div>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
+             role="alert">
+          {{ message }}
+          <button type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% if journals %}
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for journal in journals %}
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">{{ journal.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ journal.created_at|date:"F j, Y" }}</h6>
+                {% if journal.mood %}
+                  <p class="card-text">
+                    <small class="text-muted">Mood: {{ journal.mood }}</small>
+                  </p>
+                {% endif %}
+                <p class="card-text">{{ journal.content|truncatewords:30 }}</p>
+                <div class="mt-3">
+                  <a href="{% url 'journal:detail' journal.pk %}" class="card-link">Read More</a>
+                  <a href="{% url 'journal:update' journal.pk %}" class="card-link">Edit</a>
+                  <a href="{% url 'journal:delete' journal.pk %}"
+                     class="card-link text-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="text-center py-5">
+        <p class="lead">You haven't created any journal entries yet.</p>
+        <a href="{% url 'journal:create' %}" class="btn btn-primary">Create Your First Entry</a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock content %}

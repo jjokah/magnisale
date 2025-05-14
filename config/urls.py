@@ -26,6 +26,8 @@ urlpatterns = [
     # User management
     path("users/", include("magnisale.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    # Journal app
+    path("journal/", include("magnisale.journal.urls", namespace="journal")),
     # Wagtail URLs
     path("cms/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),

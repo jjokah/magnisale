@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  Delete Journal Entry
+{% endblock title %}
+{% block content %}
+  <div class="container py-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'journal:list' %}">My Journal</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Delete Entry</li>
+      </ol>
+    </nav>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="card border-danger">
+          <div class="card-body text-center">
+            <h1 class="card-title text-danger mb-4">Delete Journal Entry</h1>
+            <p class="lead mb-4">
+              Are you sure you want to delete the journal entry "{{ journal.title }}"?
+              This action cannot be undone.
+            </p>
+            <form method="post">
+              {% csrf_token %}
+              <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                <a href="{% url 'journal:detail' journal.pk %}"
+                   class="btn btn-outline-secondary me-md-2">Cancel</a>
+                <button type="submit" class="btn btn-danger">Delete Entry</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
