@@ -21,50 +21,52 @@
   --primary-light: #eaf0ff;  /* Light tint for backgrounds */
   --accent: #1a1b2e;        /* Kept if used elsewhere, hero uses primary-darker now */
 
-  --text-color: #343a40;
-  --text-muted: #6c757d;
+  --text-color: #2d3748;
+  --text-muted: #718096;
   --text-light: #f8f9fa;
   --white: #ffffff;
-  --light-bg: #f9faff; /* Very light page background */
-  --border-color: #dee2e6;
-  --border-color-light: #eef2f7;
+  --light-bg: #f8fafc;
+  --border-color: #e2e8f0;
+  --border-color-light: #edf2f7;
 
-  --border-radius-sm: 0.25rem;
-  --border-radius-md: 0.5rem;   /* 8px */
-  --border-radius-lg: 0.75rem;  /* 12px */
-  --border-radius-xl: 1.25rem; /* 20px */
-  --border-radius-section: 50px; /* For hero/footer curves */
+  --border-radius-sm: 0.375rem;
+  --border-radius-md: 0.75rem;
+  --border-radius-lg: 1rem;
+  --border-radius-xl: 1.5rem;
+  --border-radius-section: 60px;
 
-
-  --shadow-sm: 0 .125rem .25rem rgba(0,0,0,.075);
-  --shadow-md: 0 .5rem 1rem rgba(var(--primary-rgb),.1); /* Softer, primary-tinted shadow */
-  --shadow-lg: 0 1rem 3rem rgba(var(--primary-rgb),.15);
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(var(--primary-rgb),0.1), 0 2px 4px -1px rgba(var(--primary-rgb),0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(var(--primary-rgb),0.1), 0 4px 6px -2px rgba(var(--primary-rgb),0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(var(--primary-rgb),0.1), 0 10px 10px -5px rgba(var(--primary-rgb),0.04);
 }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--text-color);
-  line-height: 1.7; /* Slightly more line height */
+  line-height: 1.8;
   background-color: var(--light-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  color: var(--primary-dark); /* Darker, more contrasted headings */
-  line-height: 1.3;
+  font-weight: 800;
+  color: var(--primary-dark);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 h1.display-4 {
-  font-size: clamp(2.5rem, 5vw, 3.8rem); /* Responsive font size */
-  letter-spacing: -0.02em;
-  margin-bottom: 1.5rem; /* Consistent with lead paragraph or default h1 margin */
+  font-size: clamp(2.75rem, 5vw, 4rem);
+  letter-spacing: -0.03em;
+  margin-bottom: 1.75rem;
+  line-height: 1.1;
 }
 
 h2 {
-  font-size: clamp(1.8rem, 4vw, 2.5rem); /* Responsive font size */
-  margin-bottom: 2.5rem; /* More space after section titles, increased from 2rem */
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: 3rem;
 }
 
 h3 {
@@ -78,10 +80,11 @@ h4 {
 }
 
 .lead {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 400;
-  color: #555e68; /* Softer than default text but darker than muted */
-  margin-bottom: 2rem; /* Consistent spacing */
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
 }
 
 /* General section padding */
@@ -124,33 +127,53 @@ section {
 .hero-section {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-darker) 100%);
   color: var(--white);
-  padding: 120px 0; /* More padding */
+  padding: 140px 0;
   border-radius: 0 0 var(--border-radius-section) var(--border-radius-section);
-  box-shadow: 0 10px 40px rgba(var(--primary-rgb), 0.15);
-  overflow: hidden; /* For any decorative elements */
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  overflow: hidden;
 }
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
 .hero-section h1 {
   color: var(--white);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 .hero-section p.lead {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 1.2rem;
-  margin-bottom: 2.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.3rem;
+  margin-bottom: 3rem;
 }
-.hero-section .btn-primary { /* Specifically hero button if it has unique background */
+
+.hero-section .btn-primary {
   background: var(--white);
   color: var(--primary);
-  border: 2px solid var(--white);
+  border: none;
   font-weight: 700;
-  box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.1);
+  padding: 1rem 2.5rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
 }
+
 .hero-section .btn-primary:hover {
-  background: transparent;
-  color: var(--white);
-  border-color: var(--white); /* Keep border white */
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0,0,0, 0.1);
+  box-shadow: var(--shadow-xl);
+  background: var(--white);
+  color: var(--primary-darker);
 }
+
 .hero-section .img-fluid {
   border-radius: var(--border-radius-lg);
   /* Consider a subtle animation or parallax effect for illustration if desired later */
@@ -167,37 +190,39 @@ section.bg-light { /* Applies to Process and Why Choose Us */
 }
 
 .process-step {
-  position: relative;
-  padding: 25px 25px 25px 80px; /* Adjusted padding */
-  margin-bottom: 1.5rem; /* Bootstrap mb-4 is fine, or use this if removing utilities */
-  background-color: var(--white);
-  border-radius: var(--border-radius-lg);
-  box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%; /* For equal height in a row */
-}
-.process-step:hover {
-  transform: translateY(-6px);
+  background: var(--white);
+  border-radius: var(--border-radius-xl);
+  padding: 2.5rem 2.5rem 2.5rem 5rem;
   box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  overflow: hidden;
 }
+
 .process-step::before {
   content: attr(data-step);
   position: absolute;
-  left: 25px;
+  left: 2rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  background: var(--primary);
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-darker) 100%);
   color: var(--white);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  font-size: 1.4rem;
-  box-shadow: 0 3px 10px rgba(var(--primary-rgb), 0.2);
+  font-weight: 800;
+  font-size: 1.25rem;
+  box-shadow: var(--shadow-md);
 }
+
+.process-step:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
 .process-step h4 {
   color: var(--primary);
   margin-bottom: 0.5rem;
@@ -209,42 +234,66 @@ section.bg-light { /* Applies to Process and Why Choose Us */
 }
 
 /* Services Section - Feature Cards */
-.feature-card { /* Applied to .card */
-  border: 1px solid var(--border-color-light);
-  border-radius: var(--border-radius-xl); /* More rounded */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.07);
-  background: var(--primary-light);
-  padding: 2rem 1.75rem; /* Adjust padding */
+.feature-card {
+  background: var(--white);
+  border: none;
+  border-radius: var(--border-radius-xl);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  overflow: hidden;
 }
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.05) 0%, rgba(var(--primary-rgb), 0) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
 .feature-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 15px 40px rgba(var(--primary-rgb), 0.12);
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-xl);
 }
-.feature-card h4 { /* Targets h4 within .card-body of .feature-card */
-  color: var(--primary-dark); /* Darker for better contrast on primary-light */
-  margin-bottom: 0.75rem;
+
+.feature-card:hover::before {
+  opacity: 1;
 }
-.feature-card > .card-body > p { /* The subtitle paragraph */
+
+.feature-card h4 {
+  color: var(--primary-dark);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card > .card-body > p {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
 }
+
 .feature-card ul.list-unstyled li {
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
   color: var(--text-color);
-  font-size: 0.95rem;
+  font-size: 1rem;
   display: flex;
-  align-items: flex-start; /* Better alignment if text wraps */
+  align-items: flex-start;
 }
+
 .feature-card ul.list-unstyled li::before {
-  content: '✓';
+  content: '→';
   color: var(--primary);
   font-weight: bold;
   margin-right: 0.75rem;
   font-size: 1.1em;
-  line-height: 1.4; /* Align checkmark better with the text line */
-  flex-shrink: 0; /* Prevent checkmark from shrinking */
+  line-height: 1.4;
+  flex-shrink: 0;
 }
 
 /* Why Choose Us Section */
@@ -275,24 +324,25 @@ section.bg-light { /* Applies to Process and Why Choose Us */
 .testimonial-card {
   background: var(--white);
   border-radius: var(--border-radius-xl);
-  padding: 2.5rem 2rem; /* More padding */
-  box-shadow: 0 8px 30px rgba(var(--primary-rgb), 0.08);
-  border: 1px solid var(--border-color-light);
+  padding: 3rem 2.5rem;
+  box-shadow: var(--shadow-md);
+  border: none;
   position: relative;
-  height: 100%; /* Ensures cards in a row are same height */
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
+
 .testimonial-card::before {
-  content: '“';
-  font-family: 'Times New Roman', Times, serif; /* Classic quote font */
-  font-size: 5rem; /* Larger quote mark */
+  content: '"';
+  font-family: Georgia, serif;
+  font-size: 6rem;
   color: var(--primary-light);
   position: absolute;
   left: 1.5rem;
-  top: 1rem;
+  top: 0.5rem;
   line-height: 1;
-  z-index: 0;
   opacity: 0.8;
 }
+
 .testimonial-card p:first-of-type { /* The quote */
   font-style: italic;
   color: #495057; /* Slightly darker than text-muted */
@@ -310,12 +360,25 @@ section.bg-light { /* Applies to Process and Why Choose Us */
 }
 
 /* CTA Section */
-.cta-section { /* Applied to the section tag */
-    /* Padding inherited from general 'section' rule or can be specific here */
-    /* e.g., padding-top: 60px; padding-bottom: 60px; */
-    border-radius: var(--border-radius-xl); /* Rounded corners for the section itself */
-    /* margin: 0 auto; /* Only if section is not full-width and needs centering */
+.cta-section {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-darker) 100%);
+  border-radius: var(--border-radius-xl);
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
 }
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
 .cta-section h2 {
   color: var(--white);
 }
@@ -327,18 +390,20 @@ section.bg-light { /* Applies to Process and Why Choose Us */
   margin-bottom: 2rem;
 }
 .cta-section .btn-light {
-  background-color: var(--white);
+  background: var(--white);
   color: var(--primary);
-  border: 2px solid var(--white);
+  border: none;
   font-weight: 700;
-  box-shadow: 0 4px 15px rgba(0,0,0, 0.1);
+  padding: 1rem 2.5rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
 }
 .cta-section .btn-light:hover {
-  background-color: transparent;
-  color: var(--white);
-  border-color: var(--white);
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0,0,0, 0.15);
+  box-shadow: var(--shadow-xl);
+  background: var(--white);
+  color: var(--primary-darker);
 }
 
 /* FAQ Section */
@@ -386,52 +451,58 @@ section.bg-light { /* Applies to Process and Why Choose Us */
 /* Footer */
 .footer {
   background: var(--primary-dark);
-  color: rgba(255, 255, 255, 0.75); /* Slightly more opaque */
-  padding: 80px 0 30px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 100px 0 40px;
   border-radius: var(--border-radius-section) var(--border-radius-section) 0 0;
-  box-shadow: 0 -8px 35px rgba(var(--primary-rgb),0.08);
+  position: relative;
+  overflow: hidden;
 }
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234a66fc' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
 .footer h4 {
-  color: var(--primary); /* Changed to var(--primary) for better pop on dark bg */
+  color: var(--white);
   font-weight: 700;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
-.footer p {
-  font-size: 0.95rem;
-  margin-bottom: 0.75rem;
-}
+
 .footer .form-control {
-  background-color: rgba(255,255,255, 0.08);
-  border: 1px solid rgba(255,255,255, 0.15);
+  background-color: rgba(255,255,255, 0.1);
+  border: 1px solid rgba(255,255,255, 0.2);
   color: var(--white);
   border-radius: var(--border-radius-md);
-  padding: 0.75rem 1rem;
+  padding: 1rem 1.25rem;
+  transition: all 0.3s ease;
 }
-.footer .form-control::placeholder {
-  color: rgba(255,255,255, 0.4);
-}
+
 .footer .form-control:focus {
-  background-color: rgba(255,255,255, 0.1);
+  background-color: rgba(255,255,255, 0.15);
   border-color: var(--primary);
-  box-shadow: 0 0 0 0.2rem rgba(var(--primary-rgb),0.25);
-  color: var(--white);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb),0.25);
 }
-.footer .btn-light { /* Newsletter subscribe button */
-  background: var(--primary); /* Changed from white to primary */
+
+.footer .btn-light {
+  background: var(--primary);
   color: var(--white);
-  border: 2px solid var(--primary); /* Ensure border consistency */
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
+
 .footer .btn-light:hover {
-  background: var(--primary-darker); /* Darken primary */
-  border-color: var(--primary-darker);
-  color: var(--white);
-}
-.footer hr {
-  border-color: rgba(255,255,255,0.1);
-}
-.footer .text-center p.mb-0 { /* Copyright */
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.5);
+  background: var(--primary-darker);
+  transform: translateY(-2px);
 }
 
 /* Input focus glow for general inputs if not covered by footer's */
@@ -445,63 +516,48 @@ textarea:focus {
 }
 
 /* Responsive Adjustments */
-@media (max-width: 991.98px) { /* Changed to 991.98px for Bootstrap breakpoint consistency */
+@media (max-width: 991.98px) {
   .hero-section {
-    padding: 80px 0;
-    border-radius: 0 0 calc(var(--border-radius-section) - 15px) calc(var(--border-radius-section) - 15px);
+    padding: 100px 0;
   }
-  section { /* General section padding for medium devices */
-    padding-top: 60px;
-    padding-bottom: 60px;
+
+  .feature-card,
+  .process-step,
+  .testimonial-card {
+    padding: 2rem;
   }
-  .footer {
-    border-radius: calc(var(--border-radius-section) - 15px) calc(var(--border-radius-section) - 15px) 0 0;
-    padding-top: 60px;
-  }
-  .process-step {
-    padding: 20px 20px 20px 70px; /* Adjust padding for smaller screens */
-  }
+
   .process-step::before {
-    left: 15px; /* Adjust number position */
-  }
-  .footer .col-lg-4 { /* Stack footer columns earlier if needed or adjust spacing */
-      margin-bottom: 1.5rem; /* Add some space between stacked footer columns */
-  }
-  .footer .col-lg-4:last-child {
-      margin-bottom: 0;
+    left: 1.5rem;
   }
 }
 
-@media (max-width: 767.98px) { /* Changed to 767.98px for Bootstrap breakpoint consistency */
-  h1.display-4 {
-    font-size: clamp(2.2rem, 6vw, 2.8rem); /* Adjusted clamp for smaller screens */
-  }
-  h2 {
-    font-size: clamp(1.7rem, 5vw, 2rem); /* Adjusted clamp */
-    margin-bottom: 2rem; /* Slightly reduce margin on small screens */
-  }
-  /* section padding for small devices is already 60px from above, can be adjusted if needed */
-  /* e.g. section { padding-top: 40px; padding-bottom: 40px; } */
-
+@media (max-width: 767.98px) {
   .hero-section {
-    padding: 60px 0;
-    text-align: center; /* Center hero text on small screens */
+    padding: 80px 0;
+    text-align: center;
   }
-  .hero-section .img-fluid {
-    margin-top: 2rem;
+
+  h1.display-4 {
+    font-size: clamp(2.25rem, 6vw, 3rem);
   }
+
+  .feature-card,
+  .process-step,
+  .testimonial-card {
+    padding: 1.75rem;
+  }
+
   .footer {
-      text-align: center;
+    text-align: center;
+    padding: 60px 0 30px;
   }
-  .footer .d-flex { /* Newsletter form */
-      flex-direction: column;
-      align-items: stretch; /* Make input and button full width */
+
+  .footer .form-control {
+    margin-bottom: 1rem;
   }
-  .footer .d-flex .form-control {
-      margin-bottom: 0.75rem; /* Increased space */
-      margin-right: 0 !important;
-  }
-  .footer .d-flex .btn {
-      width: 100%; /* Make button full width */
+
+  .footer .btn-light {
+    width: 100%;
   }
 }
