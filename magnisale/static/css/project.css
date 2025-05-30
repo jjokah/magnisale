@@ -11,3 +11,497 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
+
+/* Modernized landing page styles for home.html */
+:root {
+  --primary: #4a66fc;
+  --primary-rgb: 74, 102, 252; /* RGB version for opacity */
+  --primary-darker: #3a52cc; /* A darker shade of primary */
+  --primary-dark: #2b2d42;   /* For dark backgrounds like footer */
+  --primary-light: #eaf0ff;  /* Light tint for backgrounds */
+  --accent: #1a1b2e;        /* Kept if used elsewhere, hero uses primary-darker now */
+
+  --text-color: #343a40;
+  --text-muted: #6c757d;
+  --text-light: #f8f9fa;
+  --white: #ffffff;
+  --light-bg: #f9faff; /* Very light page background */
+  --border-color: #dee2e6;
+  --border-color-light: #eef2f7;
+
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;   /* 8px */
+  --border-radius-lg: 0.75rem;  /* 12px */
+  --border-radius-xl: 1.25rem; /* 20px */
+  --border-radius-section: 50px; /* For hero/footer curves */
+
+
+  --shadow-sm: 0 .125rem .25rem rgba(0,0,0,.075);
+  --shadow-md: 0 .5rem 1rem rgba(var(--primary-rgb),.1); /* Softer, primary-tinted shadow */
+  --shadow-lg: 0 1rem 3rem rgba(var(--primary-rgb),.15);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-color);
+  line-height: 1.7; /* Slightly more line height */
+  background-color: var(--light-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--primary-dark); /* Darker, more contrasted headings */
+  line-height: 1.3;
+}
+
+h1.display-4 {
+  font-size: clamp(2.5rem, 5vw, 3.8rem); /* Responsive font size */
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem; /* Consistent with lead paragraph or default h1 margin */
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem); /* Responsive font size */
+  margin-bottom: 2.5rem; /* More space after section titles, increased from 2rem */
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    margin-bottom: 1rem; /* Added default margin */
+}
+
+h4 {
+    font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+    margin-bottom: 0.75rem; /* Added default margin */
+}
+
+.lead {
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: #555e68; /* Softer than default text but darker than muted */
+  margin-bottom: 2rem; /* Consistent spacing */
+}
+
+/* General section padding */
+section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.8rem 1.75rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 600;
+  transition: all 0.25s ease-in-out;
+  letter-spacing: 0.02em;
+  text-decoration: none; /* Ensure buttons don't have underlines from reset styles */
+}
+
+.btn-lg {
+  padding: 1rem 2.25rem;
+  font-size: 1.1rem;
+}
+
+.btn-primary { /* General primary button, not just hero */
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.18);
+}
+.btn-primary:hover {
+  background-color: var(--primary-darker);
+  border-color: var(--primary-darker);
+  color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 18px rgba(var(--primary-rgb), 0.25);
+}
+
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-darker) 100%);
+  color: var(--white);
+  padding: 120px 0; /* More padding */
+  border-radius: 0 0 var(--border-radius-section) var(--border-radius-section);
+  box-shadow: 0 10px 40px rgba(var(--primary-rgb), 0.15);
+  overflow: hidden; /* For any decorative elements */
+}
+.hero-section h1 {
+  color: var(--white);
+}
+.hero-section p.lead {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+.hero-section .btn-primary { /* Specifically hero button if it has unique background */
+  background: var(--white);
+  color: var(--primary);
+  border: 2px solid var(--white);
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.1);
+}
+.hero-section .btn-primary:hover {
+  background: transparent;
+  color: var(--white);
+  border-color: var(--white); /* Keep border white */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0, 0.1);
+}
+.hero-section .img-fluid {
+  border-radius: var(--border-radius-lg);
+  /* Consider a subtle animation or parallax effect for illustration if desired later */
+}
+
+/* Default section background for sections not hero, footer, bg-light, bg-primary */
+section:not(.hero-section):not(.footer):not(.bg-light):not(.bg-primary) {
+    background-color: var(--white);
+}
+
+/* Process Section */
+section.bg-light { /* Applies to Process and Why Choose Us */
+  background-color: var(--light-bg) !important; /* Use our defined light background */
+}
+
+.process-step {
+  position: relative;
+  padding: 25px 25px 25px 80px; /* Adjusted padding */
+  margin-bottom: 1.5rem; /* Bootstrap mb-4 is fine, or use this if removing utilities */
+  background-color: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%; /* For equal height in a row */
+}
+.process-step:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+.process-step::before {
+  content: attr(data-step);
+  position: absolute;
+  left: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+  box-shadow: 0 3px 10px rgba(var(--primary-rgb), 0.2);
+}
+.process-step h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+.process-step p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Services Section - Feature Cards */
+.feature-card { /* Applied to .card */
+  border: 1px solid var(--border-color-light);
+  border-radius: var(--border-radius-xl); /* More rounded */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.07);
+  background: var(--primary-light);
+  padding: 2rem 1.75rem; /* Adjust padding */
+}
+.feature-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(var(--primary-rgb), 0.12);
+}
+.feature-card h4 { /* Targets h4 within .card-body of .feature-card */
+  color: var(--primary-dark); /* Darker for better contrast on primary-light */
+  margin-bottom: 0.75rem;
+}
+.feature-card > .card-body > p { /* The subtitle paragraph */
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+.feature-card ul.list-unstyled li {
+  margin-bottom: 0.6rem;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: flex-start; /* Better alignment if text wraps */
+}
+.feature-card ul.list-unstyled li::before {
+  content: '✓';
+  color: var(--primary);
+  font-weight: bold;
+  margin-right: 0.75rem;
+  font-size: 1.1em;
+  line-height: 1.4; /* Align checkmark better with the text line */
+  flex-shrink: 0; /* Prevent checkmark from shrinking */
+}
+
+/* Why Choose Us Section */
+.why-choose-us-section .text-center { /* This div wraps each item */
+  padding: 2rem 1.5rem;
+  background-color: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%; /* Ensures cards in a row are same height */
+}
+.why-choose-us-section .text-center:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+.why-choose-us-section h4 {
+  color: var(--primary);
+  margin-top: 0.5rem; /* If an icon was above */
+  margin-bottom: 0.5rem;
+}
+.why-choose-us-section p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Testimonials Section */
+.testimonial-card {
+  background: var(--white);
+  border-radius: var(--border-radius-xl);
+  padding: 2.5rem 2rem; /* More padding */
+  box-shadow: 0 8px 30px rgba(var(--primary-rgb), 0.08);
+  border: 1px solid var(--border-color-light);
+  position: relative;
+  height: 100%; /* Ensures cards in a row are same height */
+}
+.testimonial-card::before {
+  content: '“';
+  font-family: 'Times New Roman', Times, serif; /* Classic quote font */
+  font-size: 5rem; /* Larger quote mark */
+  color: var(--primary-light);
+  position: absolute;
+  left: 1.5rem;
+  top: 1rem;
+  line-height: 1;
+  z-index: 0;
+  opacity: 0.8;
+}
+.testimonial-card p:first-of-type { /* The quote */
+  font-style: italic;
+  color: #495057; /* Slightly darker than text-muted */
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+.testimonial-card .fw-bold { /* Client Name */
+  color: var(--primary-dark);
+}
+.testimonial-card .text-muted { /* Client Industry */
+  font-size: 0.85rem;
+}
+
+/* CTA Section */
+.cta-section { /* Applied to the section tag */
+    /* Padding inherited from general 'section' rule or can be specific here */
+    /* e.g., padding-top: 60px; padding-bottom: 60px; */
+    border-radius: var(--border-radius-xl); /* Rounded corners for the section itself */
+    /* margin: 0 auto; /* Only if section is not full-width and needs centering */
+}
+.cta-section h2 {
+  color: var(--white);
+}
+.cta-section p.lead {
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+}
+.cta-section .btn-light {
+  background-color: var(--white);
+  color: var(--primary);
+  border: 2px solid var(--white);
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0,0,0, 0.1);
+}
+.cta-section .btn-light:hover {
+  background-color: transparent;
+  color: var(--white);
+  border-color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0, 0.15);
+}
+
+/* FAQ Section */
+.accordion-item {
+  background-color: var(--white);
+  border: 1px solid var(--border-color-light);
+  border-radius: var(--border-radius-lg); /* Consistent radius */
+  margin-bottom: 1rem;
+  box-shadow: 0 3px 10px rgba(var(--primary-rgb), 0.04);
+  overflow: hidden; /* Ensure children respect border radius */
+}
+.accordion-button {
+  background: var(--white);
+  color: var(--primary-dark);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none; /* Remove default underline if any */
+}
+.accordion-button:not(.collapsed) {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: none; /* Remove default BS shadow when expanded */
+}
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(var(--primary-rgb), 0.25);
+  border-color: transparent; /* Remove border on focus if not desired */
+  z-index: 2; /* Ensure focus ring is on top */
+}
+.accordion-button::after { /* Default Bootstrap chevron */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%234a66fc'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  transition: transform 0.25s ease-in-out;
+}
+.accordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  transform: rotate(-180deg);
+}
+.accordion-body {
+  padding: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* Footer */
+.footer {
+  background: var(--primary-dark);
+  color: rgba(255, 255, 255, 0.75); /* Slightly more opaque */
+  padding: 80px 0 30px;
+  border-radius: var(--border-radius-section) var(--border-radius-section) 0 0;
+  box-shadow: 0 -8px 35px rgba(var(--primary-rgb),0.08);
+}
+.footer h4 {
+  color: var(--primary); /* Changed to var(--primary) for better pop on dark bg */
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+.footer p {
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+.footer .form-control {
+  background-color: rgba(255,255,255, 0.08);
+  border: 1px solid rgba(255,255,255, 0.15);
+  color: var(--white);
+  border-radius: var(--border-radius-md);
+  padding: 0.75rem 1rem;
+}
+.footer .form-control::placeholder {
+  color: rgba(255,255,255, 0.4);
+}
+.footer .form-control:focus {
+  background-color: rgba(255,255,255, 0.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(var(--primary-rgb),0.25);
+  color: var(--white);
+}
+.footer .btn-light { /* Newsletter subscribe button */
+  background: var(--primary); /* Changed from white to primary */
+  color: var(--white);
+  border: 2px solid var(--primary); /* Ensure border consistency */
+}
+.footer .btn-light:hover {
+  background: var(--primary-darker); /* Darken primary */
+  border-color: var(--primary-darker);
+  color: var(--white);
+}
+.footer hr {
+  border-color: rgba(255,255,255,0.1);
+}
+.footer .text-center p.mb-0 { /* Copyright */
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+}
+
+/* Input focus glow for general inputs if not covered by footer's */
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="search"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(var(--primary-rgb),0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) { /* Changed to 991.98px for Bootstrap breakpoint consistency */
+  .hero-section {
+    padding: 80px 0;
+    border-radius: 0 0 calc(var(--border-radius-section) - 15px) calc(var(--border-radius-section) - 15px);
+  }
+  section { /* General section padding for medium devices */
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .footer {
+    border-radius: calc(var(--border-radius-section) - 15px) calc(var(--border-radius-section) - 15px) 0 0;
+    padding-top: 60px;
+  }
+  .process-step {
+    padding: 20px 20px 20px 70px; /* Adjust padding for smaller screens */
+  }
+  .process-step::before {
+    left: 15px; /* Adjust number position */
+  }
+  .footer .col-lg-4 { /* Stack footer columns earlier if needed or adjust spacing */
+      margin-bottom: 1.5rem; /* Add some space between stacked footer columns */
+  }
+  .footer .col-lg-4:last-child {
+      margin-bottom: 0;
+  }
+}
+
+@media (max-width: 767.98px) { /* Changed to 767.98px for Bootstrap breakpoint consistency */
+  h1.display-4 {
+    font-size: clamp(2.2rem, 6vw, 2.8rem); /* Adjusted clamp for smaller screens */
+  }
+  h2 {
+    font-size: clamp(1.7rem, 5vw, 2rem); /* Adjusted clamp */
+    margin-bottom: 2rem; /* Slightly reduce margin on small screens */
+  }
+  /* section padding for small devices is already 60px from above, can be adjusted if needed */
+  /* e.g. section { padding-top: 40px; padding-bottom: 40px; } */
+
+  .hero-section {
+    padding: 60px 0;
+    text-align: center; /* Center hero text on small screens */
+  }
+  .hero-section .img-fluid {
+    margin-top: 2rem;
+  }
+  .footer {
+      text-align: center;
+  }
+  .footer .d-flex { /* Newsletter form */
+      flex-direction: column;
+      align-items: stretch; /* Make input and button full width */
+  }
+  .footer .d-flex .form-control {
+      margin-bottom: 0.75rem; /* Increased space */
+      margin-right: 0 !important;
+  }
+  .footer .d-flex .btn {
+      width: 100%; /* Make button full width */
+  }
+}
