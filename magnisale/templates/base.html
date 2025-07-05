@@ -69,6 +69,11 @@
                 </li>
                 {% if request.user.is_authenticated %}
                   <li class="nav-item">
+                    <a class="nav-link" href="{% url 'meetings:list' %}">{% translate "Meetings" %}</a>
+                  </li>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                  <li class="nav-item">
                     <a class="nav-link"
                        href="{% url 'users:detail' request.user.username %}">{% translate "My Profile" %}</a>
                   </li>

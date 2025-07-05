@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {% translate "Upload Meeting Recording" %} - {{ block.super }}
+{% endblock title %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title mb-0">
+            <i class="fas fa-upload me-2"></i>{% translate "Upload Meeting Recording" %}
+          </h3>
+        </div>
+        <div class="card-body">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% crispy form %}
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-cloud-upload-alt me-2"></i>{% translate "Upload Recording" %}
+              </button>
+              <a href="{% url 'meetings:list' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>{% translate "Back to Recordings" %}
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card mt-4">
+        <div class="card-header">
+          <h5 class="card-title mb-0">
+            <i class="fas fa-info-circle me-2"></i>{% translate "Upload Guidelines" %}
+          </h5>
+        </div>
+        <div class="card-body">
+          <ul class="mb-0">
+            <li>{% translate "Maximum file size: 500MB" %}</li>
+            <li>{% translate "Supported formats: MP3, WAV, M4A, MP4, MOV, AVI" %}</li>
+            <li>{% translate "Processing time varies based on file size and duration" %}</li>
+            <li>{% translate "You'll receive a notification when the AI summary is ready" %}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block inline_javascript %}
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // File input validation
+      const fileInput = document.querySelector('input[type="file"]');
+      if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+          const file = e.target.files[0];
+          if (file) {
+            const maxSize = 500 * 1024 * 1024; // 500MB
+            if (file.size > maxSize) {
+              alert('{% translate "File size must be less than 500MB" %}');
+              e.target.value = '';
+              return;
+            }
+
+            const allowedTypes = [
+              'audio/mpeg', 'audio/wav', 'audio/x-wav', 'audio/mp4',
+              'video/mp4', 'video/quicktime', 'video/x-msvideo'
+            ];
+            if (!allowedTypes.includes(file.type)) {
+              alert('{% translate "Unsupported file format" %}');
+              e.target.value = '';
+              return;
+            }
+          }
+        });
+      }
+    });
+  </script>
+{% endblock inline_javascript %}

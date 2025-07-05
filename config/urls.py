@@ -28,6 +28,8 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Journal app
     path("journal/", include("magnisale.journal.urls", namespace="journal")),
+    # Meetings app
+    path("meetings/", include("magnisale.meetings.urls", namespace="meetings")),
     # Wagtail URLs
     path("cms/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),

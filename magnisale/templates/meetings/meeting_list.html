@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+  {% translate "My Meeting Recordings" %} - {{ block.super }}
+{% endblock title %}
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">{% translate "My Meeting Recordings" %}</h1>
+        <a href="{% url 'meetings:upload' %}" class="btn btn-primary">
+          <i class="fas fa-plus me-2"></i>{% translate "Upload New Recording" %}
+        </a>
+      </div>
+      {% if recordings %}
+        <div class="row">
+          {% for recording in recordings %}
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="{% url 'meetings:detail' recording.pk %}"
+                       class="text-decoration-none">{{ recording.title }}</a>
+                  </h5>
+                  {% if recording.description %}
+                    <p class="card-text text-muted">{{ recording.description|truncatewords:20 }}</p>
+                  {% endif %}
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">{% translate "Uploaded" %} {{ recording.uploaded_at|date:"M d, Y" }}</small>
+                    <span class="badge {% if recording.processing_status == 'completed' %}bg-success{% elif recording.processing_status == 'processing' %}bg-warning{% elif recording.processing_status == 'failed' %}bg-danger{% else %}bg-secondary{% endif %}">
+                      {{ recording.get_processing_status_display }}
+                    </span>
+                  </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'meetings:detail' recording.pk %}"
+                       class="btn btn-sm btn-outline-primary">{% translate "View Details" %}</a>
+                    {% if recording.summary %}
+                      <span class="badge bg-info">{% translate "Summary Available" %}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        {% if is_paginated %}
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% translate "Previous" %}</a>
+                </li>
+              {% endif %}
+              <li class="page-item active">
+                <span class="page-link">
+                  {% translate "Page" %} {{ page_obj.number }} {% translate "of" %} {{ page_obj.paginator.num_pages }}
+                </span>
+              </li>
+              {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% translate "Next" %}</a>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
+        {% endif %}
+      {% else %}
+        <div class="text-center py-5">
+          <div class="mb-4">
+            <i class="fas fa-microphone-slash fa-3x text-muted"></i>
+          </div>
+          <h3 class="text-muted">{% translate "No recordings yet" %}</h3>
+          <p class="text-muted">
+            {% translate "Upload your first meeting recording to get started with AI-powered summaries." %}
+          </p>
+          <a href="{% url 'meetings:upload' %}" class="btn btn-primary">{% translate "Upload Your First Recording" %}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock content %}
