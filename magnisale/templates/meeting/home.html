@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Meeting summarizer
+{% endblock title %}
+{% block bodyclass %}
+  bg-light text-dark d-flex align-items-center justify-content-center min-vh-100 p-4
+{% endblock bodyclass %}
+{% block body %}
+  <div class="w-100 max-w-2xl mx-auto bg-white rounded-3 shadow-lg p-6">
+    <!-- Header Section -->
+    <div class="text-center mb-4">
+      <h1 class="display-4 font-weight-bold">Audio Insights</h1>
+      <p class="text-muted mt-2">Upload an audio file to get a transcription and summary powered by Gemini.</p>
+    </div>
+    <!-- File Upload Section -->
+    <form enctype="multipart/form-data"
+          action="{% url 'meeting_view' %}"
+          method="post">
+      {% csrf_token %}
+      <div id="upload-area">
+        <label for="audio-file-input"
+               id="drop-zone"
+               class="d-flex flex-column align-items-center justify-content-center w-100 h-64 border border-secondary border-dashed rounded cursor-pointer bg-light hover:bg-secondary transition">
+          <div class="d-flex flex-column align-items-center justify-content-center pt-5 pb-6">
+            <svg class="w-10 h-10 mb-4 text-muted"
+                 aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 20 16">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+            </svg>
+            <p class="mb-2 text-muted">
+              <span class="font-weight-bold">Click to upload</span> or drag and drop
+            </p>
+            <p class="small text-muted">MP3, WAV, M4A, etc. (Max 15MB)</p>
+          </div>
+          <input id="audio-file-input"
+                 type="file"
+                 name="meeting-file"
+                 class="d-none"
+                 accept="audio/*" />
+        </label>
+        <p id="file-name"
+           class="mt-4 text-center small text-muted font-weight-medium"></p>
+      </div>
+      <!-- Process Button -->
+      <div class="mt-4 text-center">
+        <button id="process-btn"
+                class="btn btn-primary w-100 py-2 px-4 rounded shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 disabled:bg-secondary disabled:cursor-not-allowed">
+          Generate Insights
+        </button>
+      </div>
+    </form>
+    <!-- Loading and Results Section -->
+    {% if errors|length == 0 and transcribe_text|length > 0 %}
+      <div id="status-container" class="mt-4">
+        <!-- Loader -->
+        <div id="loader"
+             class="d-none d-flex flex-column align-items-center justify-content-center text-center">
+          <div class="loader"></div>
+          <p class="mt-4 text-muted font-weight-medium">Gemini is thinking... this might take a moment.</p>
+        </div>
+        <!-- Results -->
+        <div id="results-container" class=" mt-4">
+          <!-- Transcription Section -->
+          <div class="bg-light p-4 rounded border border-secondary">
+            <h2 class="h5 font-weight-bold mb-4">Transcription</h2>
+            <p id="transcription-output" class="text-dark">{{ transcribe_text }}</p>
+          </div>
+          <!-- Summary Section -->
+          <div class="bg-light p-4 rounded border border-secondary mt-4">
+            <h2 class="h5 font-weight-bold mb-4">Summary</h2>
+            <p id="summary-output" class="text-dark">{{ summary }}</p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <!-- Error Modal -->
+  {% if errors|length > 0 %}
+    <div id="error-modal"
+         class="position-fixed top-0 left-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center p-4 d-none">
+      <div class="bg-white rounded-lg shadow-xl p-4 max-w-sm w-100 text-center">
+        <h3 class="h4 font-weight-bold text-danger mb-2">Error</h3>
+        <p id="error-message" class="text-dark mb-4">Something went wrong.</p>
+        <button id="close-modal-btn"
+                class="btn btn-danger py-2 px-4 rounded-lg hover:bg-danger transition-colors">Close</button>
+      </div>
+    </div>
+  {% endif %}
+{% endblock body %}

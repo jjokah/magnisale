@@ -32,6 +32,7 @@ urlpatterns = [
     path("cms/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("blog/", include(wagtail_urls)),
+    path("tools", include("meeting.urls")),
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
