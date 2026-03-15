@@ -24,7 +24,7 @@ const services = [
     icon: BrainCircuit,
     title: "Custom AI Models",
     description:
-      "We train and fine-tune models on your specific data, giving you AI that understands your business — not a generic one-size-fits-all solution.",
+      "We train and fine-tune models on your specific data, giving you AI that understands your business, not a generic one-size-fits-all solution.",
     tag: "Model Training",
   },
   {
@@ -38,7 +38,7 @@ const services = [
     icon: UserCog,
     title: "Personal AI Agents",
     description:
-      "We design autonomous agents that act on your behalf — handling research, scheduling, outreach, and more — so you can focus on decisions that actually move the needle.",
+      "We design autonomous agents that act on your behalf, handling research, scheduling, outreach, and more, so you can focus on decisions that actually move the needle.",
     tag: "AI Agents",
   },
 ];

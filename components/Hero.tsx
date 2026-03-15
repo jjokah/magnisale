@@ -205,8 +205,8 @@ export default function Hero() {
             color: "#6B82AD",
           }}
         >
-          Magnisale builds intelligent systems — from chatbots to autonomous
-          agents — so your business can{" "}
+          Magnisale builds intelligent systems, from chatbots to autonomous
+          agents, so your business can{" "}
           <span style={{ color: "#C4CDE0" }}>move faster and smarter</span>.
         </motion.p>
 

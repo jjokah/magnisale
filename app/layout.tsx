@@ -24,12 +24,12 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://magnisale.com"),
-  title: "Magnisale — AI-Powered Business Systems",
+  title: "Magnisale | AI-Powered Business Systems",
   description:
-    "Magnisale builds intelligent AI systems for modern businesses — from chatbots and custom models to automation workflows and personal AI agents.",
+    "Magnisale builds intelligent AI systems for modern businesses: from chatbots and custom models to automation workflows and personal AI agents.",
   keywords: ["AI", "automation", "chatbot", "machine learning", "business AI", "Magnisale"],
   openGraph: {
-    title: "Magnisale — AI-Powered Business Systems",
+    title: "Magnisale | AI-Powered Business Systems",
     description:
       "Intelligent systems built for businesses that move fast. Chatbots, custom AI models, automation workflows, and personal agents.",
     type: "website",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Magnisale — AI-Powered Business Systems",
+    title: "Magnisale | AI-Powered Business Systems",
     description: "Intelligent systems built for businesses that move fast.",
   },
 };

@@ -83,7 +83,7 @@ export default function CTA() {
           }}
         >
           Let&apos;s talk about what AI can do for your business. No jargon, no
-          pressure — just a straight conversation about what&apos;s possible.
+          pressure. Just a straight conversation about what&apos;s possible.
         </motion.p>
 
         {/* Buttons */}

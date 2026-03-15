@@ -27,7 +27,7 @@ const pillars = [
   {
     icon: HeartHandshake,
     title: "Ongoing Support",
-    body: "We stay on after launch to monitor, improve, and scale with you. Your AI should get better over time — not drift and degrade.",
+    body: "We stay on after launch to monitor, improve, and scale with you. Your AI should get better over time, not drift and degrade.",
     metric: "Always",
     metricLabel: "Here after launch",
   },
@@ -215,7 +215,7 @@ export default function WhyMagnisale() {
                 color: "#C4CDE0",
               }}
             >
-              Every project starts with a free discovery call —{" "}
+              Every project starts with a free discovery call,{" "}
               <span style={{ color: "#00E5FF" }}>no commitment required</span>
             </p>
           </div>

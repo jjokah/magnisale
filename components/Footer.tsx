@@ -176,7 +176,7 @@ export default function Footer() {
                 color: "#2E4070",
               }}
             >
-              Built with AI, optimised for humans
+              Designed with care. Built for results.
             </p>
           </div>
         </div>
