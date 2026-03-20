@@ -126,7 +126,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden p-2 rounded-lg text-[#6B82AD] hover:text-white transition-colors"
+            className="md:hidden col-start-3 justify-self-end p-2 rounded-lg text-[#6B82AD] hover:text-white transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
             data-cursor="hover"
