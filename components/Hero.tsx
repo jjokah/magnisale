@@ -249,7 +249,7 @@ export default function Hero() {
         <motion.div
           variants={prefersReduced ? {} : fadeUp}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12"
+          className="mt-16 hidden sm:flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12"
         >
           {[
             { value: "4+", label: "AI Service Lines" },
