@@ -150,12 +150,12 @@ export default function Navbar() {
                 overflow: "hidden",
               }}
             >
-              <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-4">
+              <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-4 items-center">
                 {navLinks.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
-                    className="text-[15px] py-2 border-b border-[#1C2B50] transition-colors"
+                    className="text-[15px] py-2 border-b border-[#1C2B50] transition-colors w-full text-center"
                     style={{
                       fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)",
                       color: "#C4CDE0",
@@ -167,7 +167,7 @@ export default function Navbar() {
                 ))}
                 <a
                   href="#contact"
-                  className="btn-primary mt-2 self-start"
+                  className="btn-primary mt-2"
                   style={{ padding: "10px 22px", fontSize: "13px" }}
                   onClick={() => setMenuOpen(false)}
                 >
