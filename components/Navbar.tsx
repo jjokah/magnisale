@@ -15,9 +15,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Services",        href: "#services" },
-  { label: "Why Magnisale",   href: "#why-magnisale" },
-  { label: "Contact",         href: "#contact" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export default function Navbar() {
