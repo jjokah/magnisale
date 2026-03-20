@@ -57,8 +57,8 @@ export default function Hero() {
 
   return (
     <section
-      className="relative flex items-center justify-center overflow-hidden"
-      style={{ minHeight: "100svh", paddingTop: "80px" }}
+      className="relative flex items-center justify-center overflow-hidden pt-24 md:pt-20"
+      style={{ minHeight: "100svh" }}
     >
       {/* ── Gradient mesh background ───────────────────────────────────── */}
       <div
