@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Exo_2, DM_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
-import CustomCursor from "@/components/CustomCursor";
 
 /* ─── Fonts ──────────────────────────────────────────────────────────────── */
 
@@ -54,9 +53,7 @@ export default function RootLayout({
       <body>
         {/* Lenis smooth scroll wrapper */}
         <SmoothScrollProvider>
-          {/* Custom cursor (desktop only — hidden on touch) */}
-          <CustomCursor />
-          {children}
+{children}
         </SmoothScrollProvider>
       </body>
     </html>
