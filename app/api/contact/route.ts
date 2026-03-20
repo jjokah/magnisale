@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
     await resend.emails.send({
       from: "Magnisale Contact <contact@updates.magnisale.com>",
-      to: process.env.CONTACT_TO ?? "johnjohnsonokah@gmail.com",
+      to: "hello@magnisale.com",
       subject: `New message from ${name}`,
       text: `From: ${name} <${email}>\n\n${message}`,
     });
