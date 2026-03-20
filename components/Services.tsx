@@ -46,7 +46,7 @@ const services = [
 /* ─── Animation variants ─────────────────────────────────────────────────── */
 
 const cardVariants = {
-  hidden:  { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -205,7 +205,7 @@ export default function Services() {
                       letterSpacing: "0.06em",
                     }}
                   >
-                    LEARN MORE
+
                   </span>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path
