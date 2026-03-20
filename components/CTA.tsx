@@ -179,7 +179,7 @@ export default function CTA() {
 
           {status === "success" ? (
             <p style={{ fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)", fontSize: "15px", color: "#00E5FF", textAlign: "center" }}>
-              Message sent — we&apos;ll be in touch shortly.
+              Message sent ✓ We&apos;ll be in touch shortly.
             </p>
           ) : (
             <button

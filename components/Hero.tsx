@@ -252,7 +252,7 @@ export default function Hero() {
           className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12"
         >
           {[
-            { value: "4+",   label: "AI Service Lines" },
+            { value: "4+", label: "AI Service Lines" },
             { value: "Fast", label: "From Brief to Live" },
             { value: "Real", label: "Business Outcomes" },
           ].map((stat) => (
@@ -284,7 +284,7 @@ export default function Hero() {
 
       {/* ── Scroll indicator ──────────────────────────────────────────── */}
       <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40"
+        className="hidden 2xl:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-1.5 opacity-40"
         style={{ animation: "bounce-y 2s ease-in-out infinite" }}
         aria-hidden="true"
       >
