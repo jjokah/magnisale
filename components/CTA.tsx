@@ -3,14 +3,59 @@
 /**
  * CTA
  * Full-width conversion section with gradient background,
- * radial cyan glow, and two action buttons.
+ * radial cyan glow, and an inline contact form.
  */
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, MessageSquare } from "lucide-react";
+import { Send } from "lucide-react";
+
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  background: "rgba(255,255,255,0.07)",
+  border: "1px solid rgba(255,255,255,0.15)",
+  borderRadius: "12px",
+  padding: "14px 18px",
+  color: "#E8EDF8",
+  fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)",
+  fontSize: "15px",
+  outline: "none",
+  transition: "border-color 200ms ease, box-shadow 200ms ease",
+};
 
 export default function CTA() {
   const prefersReduced = useReducedMotion();
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    e.target.style.borderColor = "rgba(0,229,255,0.5)";
+    e.target.style.boxShadow = "0 0 0 3px rgba(0,229,255,0.08)";
+  };
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    e.target.style.borderColor = "rgba(255,255,255,0.15)";
+    e.target.style.boxShadow = "none";
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
+  };
 
   return (
     <section
@@ -86,36 +131,75 @@ export default function CTA() {
           pressure. Just a straight conversation about what&apos;s possible.
         </motion.p>
 
-        {/* Buttons */}
-        <motion.div
+        {/* Contact form */}
+        <motion.form
+          onSubmit={handleSubmit}
           initial={prefersReduced ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="w-full max-w-lg mx-auto flex flex-col gap-4 text-left"
         >
-          <a
-            href="mailto:hello@magnisale.com"
-            className="btn-accent"
-            data-cursor="hover"
-          >
-            <MessageSquare size={18} />
-            Start a Conversation
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              required
+              value={form.name}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              style={inputStyle}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Your email"
+              required
+              value={form.email}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              style={inputStyle}
+            />
+          </div>
 
-          <a
-            href="#services"
-            className="btn-ghost"
-            data-cursor="hover"
-            style={{
-              border: "1px solid rgba(255,255,255,0.2)",
-              color: "#E8EDF8",
-            }}
-          >
-            Explore Services
-            <ArrowRight size={16} />
-          </a>
-        </motion.div>
+          <textarea
+            name="message"
+            placeholder="Tell us about your project…"
+            required
+            rows={4}
+            value={form.message}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            style={{ ...inputStyle, resize: "none" }}
+          />
+
+          {status === "success" ? (
+            <p style={{ fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)", fontSize: "15px", color: "#00E5FF", textAlign: "center" }}>
+              Message sent — we&apos;ll be in touch shortly.
+            </p>
+          ) : (
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="btn-accent"
+              data-cursor="hover"
+              style={{ alignSelf: "center", opacity: status === "loading" ? 0.7 : 1 }}
+            >
+              <Send size={16} />
+              {status === "loading" ? "Sending…" : "Send Message"}
+            </button>
+          )}
+
+          {status === "error" && (
+            <p style={{ fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)", fontSize: "13px", color: "rgba(255,100,100,0.8)", textAlign: "center" }}>
+              Something went wrong. Please try again.
+            </p>
+          )}
+        </motion.form>
 
         {/* Fine-print trust line */}
         <motion.p
@@ -123,14 +207,14 @@ export default function CTA() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-8"
+          className="mt-6"
           style={{
             fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)",
             fontSize: "13px",
             color: "rgba(196,205,224,0.45)",
           }}
         >
-          Free discovery call · No commitment · Response within 24 hours
+          No commitment · Response within 24 hours
         </motion.p>
       </div>
     </section>
