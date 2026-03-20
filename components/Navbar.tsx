@@ -65,7 +65,7 @@ export default function Navbar() {
             : "1px solid transparent",
         }}
       >
-        <nav className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-[68px]">
+        <nav className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-3 items-center h-[68px]">
 
           {/* Logo */}
           <Link
@@ -90,7 +90,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav links */}
-          <ul className="hidden md:flex items-center gap-8">
+          <ul className="hidden md:flex items-center justify-center gap-8 justify-self-center">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
@@ -115,7 +115,7 @@ export default function Navbar() {
           </ul>
 
           {/* Desktop CTA */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex justify-end">
             <a
               href="#contact"
               data-cursor="hover"

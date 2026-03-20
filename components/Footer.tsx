@@ -8,12 +8,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const navLinks = [
-  { label: "Services",      href: "#services" },
-  { label: "Why Magnisale", href: "#why-magnisale" },
-  { label: "Contact",       href: "#contact" },
-];
-
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -27,7 +21,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
 
         {/* Top row */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-10">
+        <div className="flex flex-col md:grid md:grid-cols-3 items-start md:items-center gap-8 mb-10">
 
           {/* Brand */}
           <div className="flex flex-col gap-3">
@@ -53,46 +47,23 @@ export default function Footer() {
                 Magnisale
               </span>
             </Link>
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)",
-                fontSize: "13px",
-                color: "#6B82AD",
-                maxWidth: "220px",
-                lineHeight: 1.6,
-              }}
-            >
-              Intelligent systems for modern business.
-            </p>
           </div>
 
-          {/* Nav links */}
-          <nav className="flex flex-wrap gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                data-cursor="hover"
-                className="transition-colors duration-150"
-                style={{
-                  fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)",
-                  fontSize: "13px",
-                  color: "#6B82AD",
-                }}
-                onMouseEnter={(e) =>
-                  ((e.target as HTMLElement).style.color = "#C4CDE0")
-                }
-                onMouseLeave={(e) =>
-                  ((e.target as HTMLElement).style.color = "#6B82AD")
-                }
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+          {/* Tagline */}
+          <p
+            className="justify-self-center text-center"
+            style={{
+              fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)",
+              fontSize: "13px",
+              color: "#6B82AD",
+              lineHeight: 1.6,
+            }}
+          >
+            Intelligent systems for modern business.
+          </p>
 
           {/* Social icons */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 md:justify-self-end">
             {/* X / Twitter */}
             <a
               href="https://x.com/magnisale"
@@ -153,7 +124,7 @@ export default function Footer() {
         />
 
         {/* Bottom row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="flex justify-center">
           <p
             style={{
               fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)",
@@ -163,22 +134,6 @@ export default function Footer() {
           >
             © {year} Magnisale. All rights reserved.
           </p>
-
-          <div className="flex items-center gap-1.5">
-            <span
-              className="w-1.5 h-1.5 rounded-full bg-[#00E5FF] opacity-60"
-              style={{ animation: "pulse-glow 2s ease-in-out infinite" }}
-            />
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)",
-                fontSize: "12px",
-                color: "#2E4070",
-              }}
-            >
-              Designed with care. Built for results.
-            </p>
-          </div>
         </div>
       </div>
     </footer>
