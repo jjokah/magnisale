@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Exo_2, DM_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 /* ─── Fonts ──────────────────────────────────────────────────────────────── */
 
@@ -56,6 +57,7 @@ export default function RootLayout({
 {children}
         </SmoothScrollProvider>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
     </html>
   );
 }
