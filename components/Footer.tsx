@@ -73,10 +73,10 @@ export default function Footer() {
               className="transition-colors duration-150"
               style={{ color: "#2E4070" }}
               onMouseEnter={(e) =>
-                ((e.target as HTMLElement).style.color = "#5B8FFF")
+                ((e.currentTarget as HTMLElement).style.color = "#5B8FFF")
               }
               onMouseLeave={(e) =>
-                ((e.target as HTMLElement).style.color = "#2E4070")
+                ((e.currentTarget as HTMLElement).style.color = "#2E4070")
               }
             >
               <span
@@ -100,10 +100,10 @@ export default function Footer() {
               className="transition-colors duration-150"
               style={{ color: "#2E4070" }}
               onMouseEnter={(e) =>
-                ((e.target as HTMLElement).style.color = "#5B8FFF")
+                ((e.currentTarget as HTMLElement).style.color = "#5B8FFF")
               }
               onMouseLeave={(e) =>
-                ((e.target as HTMLElement).style.color = "#2E4070")
+                ((e.currentTarget as HTMLElement).style.color = "#2E4070")
               }
             >
               <svg
@@ -126,10 +126,10 @@ export default function Footer() {
               className="transition-colors duration-150"
               style={{ color: "#2E4070" }}
               onMouseEnter={(e) =>
-                ((e.target as HTMLElement).style.color = "#5B8FFF")
+                ((e.currentTarget as HTMLElement).style.color = "#5B8FFF")
               }
               onMouseLeave={(e) =>
-                ((e.target as HTMLElement).style.color = "#2E4070")
+                ((e.currentTarget as HTMLElement).style.color = "#2E4070")
               }
             >
               <svg
