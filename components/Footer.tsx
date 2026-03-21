@@ -29,6 +29,7 @@ export default function Footer() {
               href="/"
               className="flex items-center gap-3"
               data-cursor="hover"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               <Image
                 src="/magnisale-logo-icon.png"
