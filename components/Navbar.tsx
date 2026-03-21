@@ -169,7 +169,13 @@ export default function Navbar() {
                   href="#contact"
                   className="btn-primary mt-2"
                   style={{ padding: "10px 22px", fontSize: "13px" }}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMenuOpen(false);
+                    setTimeout(() => {
+                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                    }, 300);
+                  }}
                 >
                   Get Started
                 </a>
