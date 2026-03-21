@@ -29,13 +29,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="mb-12">
-          <Link href="/" className="section-label mb-4" style={{ textDecoration: "none" }}>Magnisale</Link>
+          <Link href="/" className="section-label mb-4" style={{ textDecoration: "none" }}>←Magnisale</Link>
           <h1
             style={{
               fontFamily: "var(--font-exo2)",
               fontWeight: 700,
               color: "#FFFFFF",
-              fontSize: "clamp(2rem, 5vw, 3rem)",
+              fontSize: "clamp(2.5rem, 7vw, 3rem)",
               lineHeight: 1.15,
             }}
           >
