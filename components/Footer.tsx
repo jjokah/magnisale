@@ -79,14 +79,15 @@ export default function Footer() {
                 ((e.target as HTMLElement).style.color = "#2E4070")
               }
             >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="currentColor"
+              <span
+                style={{
+                  fontFamily: "var(--font-dm-sans, 'DM Sans', sans-serif)",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                }}
               >
-                <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z" />
-              </svg>
+                Blog
+              </span>
             </a>
 
             {/* X / Twitter */}
