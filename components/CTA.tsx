@@ -52,6 +52,7 @@ export default function CTA() {
       if (!res.ok) throw new Error();
       setStatus("success");
       setForm({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 5000);
     } catch {
       setStatus("error");
     }
@@ -146,6 +147,8 @@ export default function CTA() {
               name="name"
               placeholder="Your name"
               required
+              pattern="^[A-Za-z\s'\-]{2,60}$"
+              title="Name must contain only letters, spaces, hyphens, or apostrophes"
               value={form.name}
               onChange={handleChange}
               onFocus={handleFocus}
@@ -157,6 +160,8 @@ export default function CTA() {
               name="email"
               placeholder="Your email"
               required
+              pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,10}$"
+              title="Enter a valid email address (e.g. you@example.com)"
               value={form.email}
               onChange={handleChange}
               onFocus={handleFocus}
