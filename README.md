@@ -95,6 +95,6 @@ The site is hosted on **GitHub Pages** at `magnisale.com`. `.github/workflows/pa
 - DNS lives at Namecheap: four `A` records on `@` point to GitHub Pages, and `www` is a CNAME to `jjokah.github.io`.
 - The site uses root-relative paths (`/assets/…`), so it only renders correctly on the custom domain, not at `jjokah.github.io/magnisale/`.
 
-`wrangler.jsonc` is an alternative setup for Cloudflare Workers. Any static host works, because `public/` is pre-built: serve that folder, with no build step.
+Any other static host works too, because `public/` is pre-built: serve that folder, with no build step.
 
 The site has no backend: enquiries go to `hello@magnisale.com` via `mailto:` links and copy buttons.
