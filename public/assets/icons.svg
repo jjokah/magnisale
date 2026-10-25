@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="logo" viewBox="8 18 315 292"><rect x="10" y="70" width="85" height="192" rx="10"/><rect x="108" y="20" width="114" height="288" rx="12"/><rect x="236" y="70" width="85" height="192" rx="10"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
+  <symbol id="linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v13.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></symbol>
+  <symbol id="mail" viewBox="0 0 16 16"><path d="M0 2h16v2H0zM0 12h16v2H0zM0 4h2v8H0zM14 4h2v8h-2zM2 4h2v2H2zM4 6h2v2H4zM6 8h4v2H6zM10 6h2v2h-2zM12 4h2v2h-2z"/></symbol>
+  <symbol id="copy" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M5.6 5.6h8.8v8.8H5.6zM2.6 10.4V1.6h8.8"/></symbol>
+  <symbol id="done" viewBox="0 0 16 16"><path d="M1 8h2v2H1zM3 10h2v2H3zM5 12h2v2H5zM7 10h2v2H7zM9 8h2v2H9zM11 6h2v2h-2zM13 4h2v2h-2z"/></symbol>
+  <symbol id="menu" viewBox="0 0 20 20"><path d="M2 4.25h16v1.5H2zM2 9.25h16v1.5H2zM2 14.25h16v1.5H2z"/></symbol>
+  <symbol id="close" viewBox="0 0 20 20"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M4 4l12 12M16 4L4 16"/></symbol>
+  <symbol id="px-services" viewBox="0 0 16 16"><path d="M7 0h2v5H7zM7 11h2v5H7zM0 7h5v2H0zM11 7h5v2h-5zM5 5h2v2H5zM9 5h2v2H9zM5 9h2v2H5zM9 9h2v2H9zM7 7h2v2H7z"/></symbol>
+  <symbol id="px-why" viewBox="0 0 16 16"><path d="M3 1h10v2H3zM3 13h10v2H3zM1 3h2v10H1zM13 3h2v10h-2zM6 6h4v4H6z"/></symbol>
+  <symbol id="px-faq" viewBox="0 0 16 16"><path d="M5 0h6v2H5zM3 2h2v3H3zM11 2h2v5h-2zM9 7h2v2H9zM7 9h2v2H7zM7 13h2v3H7z"/></symbol>
+  <symbol id="px-demo" viewBox="0 0 16 16"><path d="M0 1h16v3H0zM0 4h2v10H0zM14 4h2v10h-2zM0 13h16v2H0zM4 6h2v2H4zM6 8h2v2H6zM4 10h2v2H4zM9 10h3v2H9z"/></symbol>
+  <symbol id="px-blog" viewBox="0 0 16 16"><path d="M2 0h9v2H2zM11 2h2v2h-2zM13 4h2v12h-2zM2 2h2v14H2zM4 14h9v2H4zM5 6h6v2H5zM5 10h6v2H5z"/></symbol>
+</svg>

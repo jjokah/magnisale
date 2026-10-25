@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why We Built Magnisale on Next.js | Magnisale Blog</title>
+<meta name="description" content="A look at the technical choices behind Magnisale — and why Next.js App Router was the right foundation for a fast, modern sales platform.">
+<link rel="canonical" href="https://magnisale.com/blog/building-with-nextjs/">
+<meta name="theme-color" content="#0000f2">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Magnisale">
+<meta property="og:title" content="Why We Built Magnisale on Next.js | Magnisale Blog">
+<meta property="og:description" content="A look at the technical choices behind Magnisale — and why Next.js App Router was the right foundation for a fast, modern sales platform.">
+<meta property="og:url" content="https://magnisale.com/blog/building-with-nextjs/">
+<meta property="og:image" content="https://magnisale.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@magnisale">
+<meta name="twitter:title" content="Why We Built Magnisale on Next.js | Magnisale Blog">
+<meta name="twitter:description" content="A look at the technical choices behind Magnisale — and why Next.js App Router was the right foundation for a fast, modern sales platform.">
+<meta name="twitter:image" content="https://magnisale.com/og.png">
+<link rel="preload" href="/assets/fonts/sofia-sans-extra-condensed.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+<script>(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;if(t==="dark")document.querySelector('meta[name="theme-color"]').content="#0d0d24"})()</script>
+<script type="module" src="/assets/js/site.js"></script>
+
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="frame" aria-hidden="true"></div>
+<button class="fold" type="button" data-theme-toggle aria-label="Switch to dark mode"></button>
+
+<header class="paper-nav is-static" data-paper-nav>
+  <div class="wrap paper-nav__inner nav-grid">
+    <nav class="nav-side" aria-label="Primary">
+      <a class="nav-link" href="/#services">Services</a>
+      <a class="nav-link" href="/#why">Why us</a>
+    </nav>
+    <a class="paper-nav__mark" href="/" aria-label="Magnisale home"><svg class="i"><use href="/assets/icons.svg#logo"/></svg></a>
+    <div class="nav-side nav-side--end">
+      <a class="nav-link" href="/blog/">Blog</a>
+      <div class="nav-actions">
+        <a class="btn btn--primary" href="/#contact">Get started</a>
+        <button class="menu-btn" type="button" data-menu-open aria-expanded="false" aria-controls="menu" aria-label="Open menu"><svg class="i"><use href="/assets/icons.svg#menu"/></svg></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="menu__top">
+    <a class="wordmark" href="/"><svg class="i"><use href="/assets/icons.svg#logo"/></svg><span>Magnisale</span></a>
+    <button class="menu-btn" type="button" data-menu-close aria-label="Close menu"><svg class="i"><use href="/assets/icons.svg#close"/></svg></button>
+  </div>
+  <nav class="menu__links" aria-label="Menu">
+    <a href="/#services">Services</a>
+    <a href="/#why">Why us</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/blog/">Blog</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+  <div class="menu__foot">
+    <a class="btn btn--white" href="mailto:hello@magnisale.com?subject=New%20project">Email hello@magnisale.com</a>
+    <div class="socials">
+      <a href="https://x.com/magnisale" target="_blank" rel="noopener" aria-label="Magnisale on X"><svg class="i"><use href="/assets/icons.svg#x"/></svg></a>
+      <a href="https://linkedin.com/company/magnisale" target="_blank" rel="noopener" aria-label="Magnisale on LinkedIn"><svg class="i"><use href="/assets/icons.svg#linkedin"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<main id="main" class="paper post">
+
+<article class="wrap wrap--narrow">
+  <a class="eyebrow back-link" href="/blog/">&larr; All posts</a>
+  <div class="chips"><a class="chip" href="/blog/tag/technology/">technology</a></div>
+  <h1 class="post__title">Why We Built Magnisale on Next.js</h1>
+  <p class="eyebrow"><time datetime="2026-03-10">March 10, 2026</time></p>
+  <div class="prose">
+<h2>The Problem With Most Sales Platforms</h2>
+<p>Most sales platforms are slow. They&#39;re built on legacy stacks that prioritise feature count over user experience. Every click takes a second too long, and that adds up when your team is doing hundreds of outreach actions per day.</p>
+<p>We knew from day one that speed and reliability weren&#39;t negotiable.</p>
+<h2>Why Next.js</h2>
+<p>When we set out to build Magnisale, we evaluated several frameworks. We chose <strong>Next.js</strong> — specifically the App Router introduced in Next.js 13 — for a few core reasons:</p>
+<h3>1. React Server Components</h3>
+<p>Server Components let us fetch data on the server and stream HTML to the client without shipping unnecessary JavaScript. For a data-heavy sales dashboard, this means faster initial loads and a snappier experience for reps.</p>
+<h3>2. File-based Routing</h3>
+<p>The App Router&#39;s folder-based routing maps cleanly to how we think about the product — workspaces, campaigns, contacts, sequences. Adding a new section is as simple as adding a folder.</p>
+<h3>3. Edge-Ready</h3>
+<p>With Vercel&#39;s Edge Network, we can deploy server functions close to every user. For a globally distributed sales team, that latency difference is real.</p>
+<h2>The Stack</h2>
+<p>Here&#39;s a simplified view of what powers Magnisale today:</p>
+<pre><code class="language-ts">// A typical server component in our app
+import { getCampaigns } from &quot;@/lib/campaigns&quot;;
+
+export default async function CampaignsPage() {
+  const campaigns = await getCampaigns();
+  return &lt;CampaignList items={campaigns} /&gt;;
+}
+</code></pre>
+<ul>
+<li><strong>Next.js 15</strong> — App Router, Server Components, streaming</li>
+<li><strong>TypeScript</strong> — strict mode throughout</li>
+<li><strong>Tailwind CSS v4</strong> — utility-first, PostCSS-first</li>
+<li><strong>Vercel</strong> — deployment, edge functions, analytics</li>
+</ul>
+<h2>What&#39;s Next</h2>
+<p>We&#39;re continuing to push the performance envelope. Upcoming work includes:</p>
+<ul>
+<li>Optimistic UI updates for sequence actions</li>
+<li>Incremental Static Regeneration for analytics dashboards</li>
+<li>Real-time collaboration features using Server-Sent Events</li>
+</ul>
+<p>Follow this blog for updates as we ship.</p>
+
+  </div>
+  <div class="post__end"><a class="btn btn--outline" href="/blog/">&larr; All posts</a></div>
+</article>
+</main>
+<footer class="site-footer paper">
+  <div class="ghost" aria-hidden="true">Magnisale</div>
+  <div class="wrap site-footer__row">
+    <div>
+      <p>Intelligent systems for modern business.</p>
+      <p>&copy; <span data-year>2026</span> Magnisale</p>
+    </div>
+    <div class="badges">
+      <a class="badge badge--logo" href="/" aria-label="Magnisale home"><svg class="i"><use href="/assets/icons.svg#logo"/></svg></a>
+      <a class="badge" href="https://x.com/magnisale" target="_blank" rel="noopener" aria-label="Magnisale on X"><svg class="i"><use href="/assets/icons.svg#x"/></svg></a>
+      <a class="badge" href="https://linkedin.com/company/magnisale" target="_blank" rel="noopener" aria-label="Magnisale on LinkedIn"><svg class="i"><use href="/assets/icons.svg#linkedin"/></svg></a>
+    </div>
+    <div class="site-footer__end">
+      <p><a href="/blog/">Blog</a> | <a href="/#contact">Contact</a></p>
+      <p>All rights reserved</p>
+    </div>
+  </div>
+</footer>
+
+<footer class="reveal" data-reveal-footer aria-label="Site map">
+  <img class="reveal__art" src="/assets/art/footer.png" width="1440" height="900" alt="" loading="lazy" decoding="async">
+  <div class="wrap reveal__grid">
+    <div class="reveal__intro">
+      <svg class="i"><use href="/assets/icons.svg#logo"/></svg>
+      <p>Intelligent systems for modern business. From chatbots to autonomous agents.</p>
+    </div>
+    <nav aria-label="Magnisale">
+      <p class="reveal__cat">Company</p>
+      <p class="reveal__title">Magnisale</p>
+      <div class="reveal__links">
+        <a class="chip-link" href="/#services">Services</a>
+        <a class="chip-link" href="/#why">Why us</a>
+        <a class="chip-link" href="/#faq">FAQ</a>
+        <a class="chip-link" href="/#contact">Contact</a>
+      </div>
+    </nav>
+    <nav aria-label="Services">
+      <p class="reveal__cat">What we build</p>
+      <p class="reveal__title">Services</p>
+      <div class="reveal__links">
+        <a class="chip-link" href="/#services">Chatbots &amp; apps</a>
+        <a class="chip-link" href="/#services">Custom models</a>
+        <a class="chip-link" href="/#services">Automation</a>
+        <a class="chip-link" href="/#services">AI agents</a>
+      </div>
+    </nav>
+    <nav aria-label="Latest posts">
+      <p class="reveal__cat">Latest</p>
+      <p class="reveal__title">Blog</p>
+      <div class="reveal__links">
+        <a class="chip-link" href="/blog/cold-email-that-converts/">The Cold Email Formula That Actually Converts</a>
+        <a class="chip-link" href="/blog/building-with-nextjs/">Why We Built Magnisale on Next.js</a>
+        <a class="chip-link" href="/blog/hello-world/">Welcome to the Magnisale Blog</a>
+        <a class="chip-link" href="/blog/">All posts &rarr;</a>
+      </div>
+    </nav>
+    <nav aria-label="Connect">
+      <p class="reveal__cat">Say hello</p>
+      <p class="reveal__title">Connect</p>
+      <div class="reveal__links">
+        <a class="chip-link" href="mailto:hello@magnisale.com">Email</a>
+        <a class="chip-link" href="https://x.com/magnisale" target="_blank" rel="noopener">X</a>
+        <a class="chip-link" href="https://linkedin.com/company/magnisale" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </nav>
+  </div>
+  <div class="reveal__ghost" aria-hidden="true">Magnisale</div>
+  <div class="wrap">
+    <div class="reveal__bottom">
+      <div class="socials">
+        <a href="https://x.com/magnisale" target="_blank" rel="noopener" aria-label="Magnisale on X"><svg class="i"><use href="/assets/icons.svg#x"/></svg></a>
+        <a href="https://linkedin.com/company/magnisale" target="_blank" rel="noopener" aria-label="Magnisale on LinkedIn"><svg class="i"><use href="/assets/icons.svg#linkedin"/></svg></a>
+      </div>
+      <span>&copy; <span data-year>2026</span> Magnisale</span>
+      <a href="mailto:hello@magnisale.com">hello@magnisale.com</a>
+      <a href="#main">Back to top &uarr;</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

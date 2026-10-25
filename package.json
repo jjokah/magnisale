@@ -1,34 +1,13 @@
 {
-  "name": "magnisale-app",
-  "version": "0.1.0",
+  "name": "magnisale",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "@next/third-parties": "^16.2.1",
-    "gray-matter": "^4.0.3",
-    "lenis": "^1.3.18",
-    "lucide-react": "^0.577.0",
-    "motion": "^12.36.0",
-    "next": "16.1.6",
-    "next-mdx-remote": "^6.0.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "resend": "^6.9.4"
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "art": "node scripts/dither-art.mjs"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/mdx": "^2.0.13",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.6",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "marked": "^18.1.1"
   }
 }
