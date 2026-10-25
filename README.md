@@ -89,12 +89,14 @@ All are self-hosted under the SIL Open Font License:
 
 ## Deploy
 
-Serve the `public/` folder on any static host (Cloudflare Pages, Netlify, GitHub Pages via Actions, Vercel, S3, nginx…). No build step is needed on the host.
+The site is hosted on **Cloudflare Workers (static assets)**, connected to this GitHub repo. Every push to `main` redeploys automatically.
 
-On Vercel:
+- `wrangler.jsonc` tells Cloudflare to serve `public/` and to use `public/404.html` for missing pages.
+- Dashboard build settings:
+  - **Build command:** empty
+  - **Deploy command:** `npx wrangler deploy`
+  - **Path:** `/`
 
-1. Set **Framework Preset** to *Other*.
-2. Clear the build command.
-3. Set the **Output Directory** to `public`.
+Any other static host works too, because `public/` is pre-built: serve that folder, with no build step.
 
-The old `RESEND_API_KEY` and `NEXT_PUBLIC_GA_MEASUREMENT_ID` environment variables are no longer used. The site has no contact form backend; enquiries go to `hello@magnisale.com` via `mailto:` links and copy buttons.
+The site has no backend: enquiries go to `hello@magnisale.com` via `mailto:` links and copy buttons.

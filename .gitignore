@@ -1,5 +1,6 @@
 node_modules/
 .cache/
+.wrangler/
 .env*
 .DS_Store
 .playwright-mcp/
