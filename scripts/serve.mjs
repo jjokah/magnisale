@@ -8,16 +8,19 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "public");
 const PORT = Number(process.env.PORT) || 3000;
+const HOST = "0.0.0.0";
 const TYPES = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
   ".svg": "image/svg+xml",
   ".png": "image/png",
   ".webp": "image/webp",
   ".woff2": "font/woff2",
   ".xml": "application/xml",
   ".txt": "text/plain; charset=utf-8",
+  ".ico": "image/x-icon",
 };
 
 createServer(async (req, res) => {
@@ -38,4 +41,5 @@ createServer(async (req, res) => {
     const body = await readFile(join(ROOT, "404.html")).catch(() => "Not found");
     res.writeHead(404, { "Content-Type": TYPES[".html"] }).end(body);
   }
-}).listen(PORT, () => console.log(`Serving public/ at http://localhost:${PORT}`));
+}).listen(PORT, HOST, () => console.log(`Serving public/ at http://${HOST}:${PORT}`));
+
