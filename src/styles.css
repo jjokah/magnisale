@@ -1,6 +1,10 @@
-/* Magnisale Design System 1.0. Tokens come from board 08 (Tokens); the rest of
+/* Magnisale Design System 1.1. Tokens come from board 08 (Tokens); the rest of
    this file turns boards 03 to 05 (typography, foundations, components) into
-   a handful of shared classes. Layout lives in the components as utilities. */
+   a handful of shared classes. Layout lives in the components as utilities.
+
+   1.1 adds to 1.0: fluid heading sizes, a glow shadow and section backdrops,
+   scroll reveals, hover states, the "working" status, form fields and the
+   accordion. Colours, fonts, radii and the mark are unchanged. */
 @import "tailwindcss";
 
 @font-face {
@@ -23,6 +27,24 @@
   font-weight: 500;
   font-display: swap;
   src: url("/fonts/jetbrains-mono-500.woff2") format("woff2");
+}
+/* Fallbacks sized to the web fonts' measured widths, so text does not re-wrap
+   when the real fonts swap in. */
+@font-face {
+  font-family: "Exo 2 Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Arial");
+  size-adjust: 98.6%;
+  ascent-override: 101%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "DM Sans Fallback";
+  src: local("Arial"), local("ArialMT");
+  size-adjust: 103.9%;
+  ascent-override: 95%;
+  descent-override: 30%;
+  line-gap-override: 0%;
 }
 
 @theme static {
@@ -58,6 +80,7 @@
   --color-ink-900: #0a1033;
 
   --color-lime: #d7f26b;
+  --color-lime-hover: #c8e550;
   --color-success: #0b7a53;
   --color-success-tint: #e6f5ee;
   --color-warning: #b45309;
@@ -79,21 +102,23 @@
   --color-action-tint: var(--color-blue-50);
   --color-focus: var(--color-blue-600);
   --color-accent: var(--color-lime);
+  --color-accent-hover: var(--color-lime-hover);
 
-  --font-display: "Exo 2", sans-serif;
-  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Exo 2", "Exo 2 Fallback", sans-serif;
+  --font-sans: "DM Sans", "DM Sans Fallback", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  --text-display: 4.5rem;
-  --text-display--line-height: 4.75rem;
-  --text-h1: 3rem;
-  --text-h1--line-height: 3.375rem;
-  --text-h2: 2.25rem;
-  --text-h2--line-height: 2.625rem;
-  --text-h3: 1.5rem;
-  --text-h3--line-height: 1.875rem;
-  --text-h4: 1.25rem;
-  --text-h4--line-height: 1.625rem;
+  /* Headings scale with the viewport between their phone and desktop sizes. */
+  --text-display: clamp(2.5rem, 0.9rem + 3.4vw, 4.25rem);
+  --text-display--line-height: 1.06;
+  --text-h1: clamp(2rem, 1.4rem + 2vw, 3rem);
+  --text-h1--line-height: 1.12;
+  --text-h2: clamp(1.75rem, 1.45rem + 1vw, 2.25rem);
+  --text-h2--line-height: 1.17;
+  --text-h3: clamp(1.375rem, 1.3rem + 0.3vw, 1.5rem);
+  --text-h3--line-height: 1.25;
+  --text-h4: clamp(1.125rem, 1.08rem + 0.2vw, 1.25rem);
+  --text-h4--line-height: 1.3;
   --text-body-lg: 1.125rem;
   --text-body-lg--line-height: 1.75rem;
   --text-body: 1rem;
@@ -106,16 +131,6 @@
   --text-caption--line-height: 1.125rem;
   --text-eyebrow: 0.75rem;
   --text-eyebrow--line-height: 1rem;
-  --text-display-phone: 2.75rem;
-  --text-display-phone--line-height: 3rem;
-  --text-h1-phone: 2.125rem;
-  --text-h1-phone--line-height: 2.5rem;
-  --text-h2-phone: 1.75rem;
-  --text-h2-phone--line-height: 2.125rem;
-  --text-h3-phone: 1.375rem;
-  --text-h3-phone--line-height: 1.75rem;
-  --text-h4-phone: 1.125rem;
-  --text-h4-phone--line-height: 1.5rem;
 
   /* 4 px base. Use steps 1, 2, 3, 4, 5, 6, 8, 10, 12, 16 and 24 only. */
   --spacing: 0.25rem;
@@ -130,6 +145,8 @@
   --shadow-sm: 0 2px 6px rgb(10 16 51 / 0.1);
   --shadow-md: 0 8px 24px -6px rgb(10 16 51 / 0.16);
   --shadow-lg: 0 24px 48px -12px rgb(10 16 51 / 0.24);
+  /* Lifts the one hero surface off the page with a hint of the brand blue. */
+  --shadow-glow: 0 32px 64px -24px rgb(26 58 245 / 0.3), 0 8px 24px -8px rgb(10 16 51 / 0.12);
 
   --duration-fast: 140ms;
   --duration-base: 220ms;
@@ -151,12 +168,23 @@
     line-height: var(--text-body--line-height);
     -webkit-font-smoothing: antialiased;
   }
+  p {
+    text-wrap: pretty;
+  }
+  button:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
   :focus-visible {
     outline: 2px solid var(--color-focus);
     outline-offset: 2px;
   }
   .on-dark :focus-visible {
     outline-color: var(--color-white);
+  }
+  /* A white surface inside a dark section, such as the enquiry form. */
+  .on-light :focus-visible {
+    outline-color: var(--color-focus);
   }
   ::selection {
     background: var(--color-blue-100);
@@ -181,7 +209,6 @@
     padding-block: 4rem;
   }
 
-  /* Headings: phone sizes first, desktop sizes from 640 px. */
   .t-display,
   .t-h1,
   .t-h2,
@@ -192,28 +219,28 @@
     text-wrap: balance;
   }
   .t-display {
-    font-size: var(--text-display-phone);
-    line-height: var(--text-display-phone--line-height);
-    letter-spacing: -0.02em;
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    letter-spacing: -0.025em;
   }
   .t-h1 {
-    font-size: var(--text-h1-phone);
-    line-height: var(--text-h1-phone--line-height);
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
     letter-spacing: -0.03em;
   }
   .t-h2 {
-    font-size: var(--text-h2-phone);
-    line-height: var(--text-h2-phone--line-height);
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
     letter-spacing: -0.025em;
   }
   .t-h3 {
-    font-size: var(--text-h3-phone);
-    line-height: var(--text-h3-phone--line-height);
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
     letter-spacing: -0.02em;
   }
   .t-h4 {
-    font-size: var(--text-h4-phone);
-    line-height: var(--text-h4-phone--line-height);
+    font-size: var(--text-h4);
+    line-height: var(--text-h4--line-height);
     font-weight: 600;
   }
   .t-lede {
@@ -252,6 +279,10 @@
     transform: translateY(-1px);
   }
   .btn:active {
+    transform: scale(0.98);
+  }
+  .btn:disabled {
+    opacity: 0.6;
     transform: none;
   }
   .btn-sm {
@@ -280,6 +311,9 @@
     background: var(--color-accent);
     color: var(--color-fg);
   }
+  .btn-accent:hover {
+    background: var(--color-accent-hover);
+  }
 
   .link {
     display: inline-flex;
@@ -292,6 +326,118 @@
   .link:hover {
     color: var(--color-action-hover);
   }
+  .link svg {
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+  .link:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* The standard raised surface. Hover changes its edge and shadow only: the
+     cards are not links, so they do not lift. */
+  .card {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    transition:
+      border-color var(--duration-base) var(--ease-standard),
+      box-shadow var(--duration-base) var(--ease-standard);
+  }
+  @media (hover: hover) {
+    .card:hover {
+      border-color: var(--color-blue-200);
+      box-shadow: var(--shadow-md);
+    }
+  }
+
+  /* Section backdrops. */
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+  }
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+  }
+  /* A dot grid that fades out away from the workflow example. */
+  .hero::before {
+    inset: 0;
+    background-image: radial-gradient(var(--color-ink-300) 1px, transparent 1px);
+    background-size: 1.5rem 1.5rem;
+    mask-image: radial-gradient(ellipse 60% 75% at 78% 40%, #000 0%, transparent 72%);
+    opacity: 0.7;
+  }
+  .hero::after {
+    top: -16rem;
+    right: -12rem;
+    width: 56rem;
+    height: 48rem;
+    background: radial-gradient(closest-side, rgb(64 112 255 / 0.2), transparent);
+  }
+  .band-dark {
+    background:
+      radial-gradient(56rem 32rem at 90% -10%, rgb(26 58 245 / 0.4), transparent 70%),
+      var(--color-surface-inverse);
+  }
+  .band-blue {
+    background:
+      radial-gradient(48rem 32rem at 100% 0%, rgb(112 153 254 / 0.4), transparent 70%),
+      var(--color-action);
+  }
+
+  /* Form fields: 48 px tall, 16 px text so phones do not zoom on focus. */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .field > label {
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    font-weight: 600;
+  }
+  .input {
+    width: 100%;
+    height: 3rem;
+    padding-inline: 1rem;
+    border: 1px solid var(--color-line-control);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-fg);
+    font: inherit;
+    transition: border-color var(--duration-fast) var(--ease-standard);
+  }
+  .input:hover {
+    border-color: var(--color-fg);
+  }
+  .input:focus-visible {
+    border-color: var(--color-action);
+  }
+  textarea.input {
+    height: auto;
+    min-height: 7rem;
+    padding-block: 0.75rem;
+    resize: vertical;
+  }
+
+  /* Accordion on a native <details>. It opens without scripts; where the
+     browser can animate to an automatic height, it does. */
+  .faq > summary {
+    list-style: none;
+  }
+  .faq > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* The dot on a "Working" status badge. */
+  .dot-pulse {
+    animation: pulse 1s var(--ease-standard) infinite;
+  }
 
   /* Page-level reveal. Runs in CSS alone, so the content never waits for
      scripts. Set --i on an element to stagger it. */
@@ -301,26 +447,6 @@
   }
 
   @media (min-width: 40rem) {
-    .t-display {
-      font-size: var(--text-display);
-      line-height: var(--text-display--line-height);
-    }
-    .t-h1 {
-      font-size: var(--text-h1);
-      line-height: var(--text-h1--line-height);
-    }
-    .t-h2 {
-      font-size: var(--text-h2);
-      line-height: var(--text-h2--line-height);
-    }
-    .t-h3 {
-      font-size: var(--text-h3);
-      line-height: var(--text-h3--line-height);
-    }
-    .t-h4 {
-      font-size: var(--text-h4);
-      line-height: var(--text-h4--line-height);
-    }
     .t-lede {
       font-size: var(--text-body-lg);
       line-height: var(--text-body-lg--line-height);
@@ -343,12 +469,44 @@
       padding-block: 6rem;
     }
   }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Below the fold, content rises in as it scrolls into view. Browsers
+       without scroll-driven animation simply show it. */
+    @supports (animation-timeline: view()) {
+      .reveal-scroll {
+        animation: rise-in linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 12rem;
+      }
+    }
+    @supports (interpolate-size: allow-keywords) {
+      .faq {
+        interpolate-size: allow-keywords;
+      }
+      .faq::details-content {
+        block-size: 0;
+        overflow: clip;
+        transition:
+          block-size var(--duration-base) var(--ease-standard),
+          content-visibility var(--duration-base) allow-discrete;
+      }
+      .faq[open]::details-content {
+        block-size: auto;
+      }
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .btn:hover {
+    .btn:hover,
+    .btn:active,
+    .link:hover svg {
       transform: none;
     }
     .reveal {
       animation-name: fade;
+    }
+    .dot-pulse {
+      animation: none;
     }
   }
 }
@@ -359,8 +517,20 @@
     transform: translateY(8px);
   }
 }
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
 @keyframes fade {
   from {
     opacity: 0;
+  }
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
   }
 }
