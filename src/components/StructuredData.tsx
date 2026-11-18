@@ -10,6 +10,7 @@ const data = [
     url: site.url,
     image: `${site.url}og.png`,
     email: site.email,
+    ...(site.whatsapp && { telephone: `+${site.whatsapp}` }),
     slogan: site.tagline,
     description: site.about,
     areaServed: { "@type": "Country", name: "Nigeria" },

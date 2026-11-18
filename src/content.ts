@@ -31,12 +31,12 @@ export const site = {
   email: "hello@magnisale.com",
   // Your WhatsApp number in international format, digits only, for example
   // "2348012345678". Every WhatsApp button stays hidden while this is empty.
-  whatsapp: "",
+  whatsapp: "2347066963636",
   whatsappMessage: "Hello Magnisale, I would like to book a discovery call.",
   // Your Web3Forms access key (https://web3forms.com). Enquiries are forwarded
   // to the inbox the key was created with. The enquiry form stays hidden while
   // this is empty, and the contact section offers email instead.
-  formKey: "",
+  formKey: "6b5c3e85-8494-46f7-8bce-73dbb5d2258e",
   formEndpoint: "https://api.web3forms.com/submit",
   about: "Magnisale builds AI agents and automated workflows for businesses in Nigeria.",
   social: [
@@ -344,8 +344,14 @@ export type Testimonial = { result?: string; quote: string; name: string; role: 
 export const proof: { eyebrow: string; title: string; lede: string; items: Testimonial[] } = {
   eyebrow: "Results",
   title: "What our clients say",
-  lede: "Businesses we have built AI agents for, in their own words.",
-  items: [],
+  lede: "Businesses we work with, in their own words.",
+  items: [
+    {
+      quote: "I have first-hand experience with Magnisale. They are good at what they do. Very reliable.",
+      name: "Chibuike Odo",
+      role: "CEO, Iken Care",
+    },
+  ],
 };
 
 export const faq: { eyebrow: string; title: string; lede: string; items: { q: string; a: string }[] } = {
