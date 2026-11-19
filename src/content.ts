@@ -405,7 +405,7 @@ export const contact = {
     messageHint: "A sentence or two is enough.",
     submit: "Send enquiry",
     sending: "Sending…",
-    note: "We use your details only to reply to your enquiry. They reach us through Web3Forms, our form service.",
+    note: "We use your details only to reply to your enquiry.",
     sentTitle: "Thank you. Your enquiry is with us.",
     sentBody: "We reply within 24 hours to arrange your discovery call.",
     failed: "That did not send. Please try again, or email us at",
