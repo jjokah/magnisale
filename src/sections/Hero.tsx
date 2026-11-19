@@ -15,7 +15,9 @@ export function Hero() {
           <h1 className="t-display">{hero.title}</h1>
           <p className="t-lede max-w-[37.5rem]">{hero.lede}</p>
 
-          <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
+          {/* Wraps where the column is narrower than both buttons (around
+              1024 px, beside the example), instead of running into it. */}
+          <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <Button href={cta.href} size="lg">
               {cta.label}
               <ArrowRight size={20} strokeWidth={1.75} aria-hidden="true" />

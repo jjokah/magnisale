@@ -12,11 +12,13 @@ const tones: Record<BadgeStatus, { badge: string; dot: string }> = {
 
 // A pill with a dot and a word: status is never shown by colour alone.
 // `still` stops the "Working" pulse, for when the example is paused.
+// No colour transition: the word changes at once, so the colour does too,
+// and a badge never shows "Queued" in the green of "Done".
 export function StatusBadge({ status, still = false, children }: { status: BadgeStatus; still?: boolean; children: string }) {
   const tone = tones[status];
   return (
     <span
-      className={`inline-flex h-7 flex-none items-center gap-2 rounded-pill px-3 text-caption font-semibold transition-colors duration-220 ease-standard ${tone.badge}`}
+      className={`inline-flex h-7 flex-none items-center gap-2 rounded-pill px-3 text-caption font-semibold ${tone.badge}`}
     >
       <span className={`size-2 rounded-pill ${tone.dot} ${still ? "animate-none" : ""}`} />
       {children}

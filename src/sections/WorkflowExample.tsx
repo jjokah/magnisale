@@ -63,13 +63,15 @@ export function WorkflowExample() {
     };
   }, []);
 
-  // Start from the first step the first time the example is on screen.
+  // The first time the example is on screen, carry on from what the
+  // prerendered page already shows (this example, finished) rather than
+  // jumping back to its first step: hold it, then move on to the next one.
   useEffect(() => {
     if (!motion) {
       setPhase(FINISHED);
     } else if (visible && !started.current) {
       started.current = true;
-      setPhase(1);
+      setPhase(workflows[tab].steps.length);
     }
   }, [motion, visible]);
 
@@ -96,6 +98,9 @@ export function WorkflowExample() {
   }, [playing, finished, rotating, engaged, phase, tab]);
 
   const select = (index: number) => {
+    // A picked tab plays from its first step, even if the figure has not
+    // counted as on screen yet.
+    started.current = true;
     setRotating(false);
     setTab(index);
     setPhase(motion ? 1 : FINISHED);

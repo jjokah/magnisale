@@ -70,7 +70,8 @@ export const nav = [
 const reassurance = ["Free discovery call", "No commitment", "Reply within 24 hours"];
 
 export const hero = {
-  eyebrow: "AI agents for Nigerian businesses",
+  // Short enough for one line on a 320 px phone.
+  eyebrow: "For businesses in Nigeria",
   title: "AI agents that take the routine work off your team",
   lede: "We design, build and maintain AI agents around the way your business already runs: replying to customers, following up leads, keeping records up to date. Your team approves what matters.",
   trust: reassurance,
