@@ -48,7 +48,8 @@ export function Nav() {
       {open && (
         <div aria-hidden="true" onClick={() => setOpen(false)} className="fixed inset-0 z-20 bg-ink-900/40 md:hidden" />
       )}
-      <header ref={header} className="sticky top-0 z-30 border-b border-line bg-surface/85 backdrop-blur-md">
+      {/* 95% white, so the bar stays near-white over the dark and blue bands. */}
+      <header ref={header} className="sticky top-0 z-30 border-b border-line bg-surface/95 backdrop-blur-md">
         <nav aria-label="Main" className="wrap flex h-16 items-center justify-between gap-4 lg:h-20">
           <Logo className="text-action" />
 
@@ -100,7 +101,8 @@ export function Nav() {
                   <a
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="flex h-12 items-center text-body font-medium"
+                    aria-current={active === item.href.slice(1) ? "location" : undefined}
+                    className="flex h-12 items-center text-body font-medium aria-[current]:font-semibold aria-[current]:text-action"
                   >
                     {item.label}
                   </a>

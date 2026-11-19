@@ -267,7 +267,7 @@ export const solutions: {
 export const process = {
   eyebrow: "How we work",
   title: "From first call to everyday use",
-  lede: "From a first conversation to AI agents your team uses every day, with three months of maintenance included.",
+  lede: "Four steps, and every project fee includes three months of maintenance.",
   getLabel: "You get",
   includedLabel: "Included",
   steps: [
@@ -333,33 +333,17 @@ export const privacy: {
   ],
 };
 
-// Real results and testimonials only. The section stays off the page while
-// `items` is empty. Example entry:
-//   {
-//     result: "The outcome in a few words",        (optional)
-//     quote: "What the client said, in their words.",
-//     name: "Client name",
-//     role: "Role, Company",
-//   }
-export type Testimonial = { result?: string; quote: string; name: string; role: string };
-
-export const proof: { eyebrow: string; title: string; lede: string; items: Testimonial[] } = {
-  eyebrow: "Results",
-  title: "What our clients say",
-  lede: "Businesses we work with, in their own words.",
-  items: [
-    {
-      quote: "I have first-hand experience with Magnisale. They are good at what they do. Very reliable.",
-      name: "Chibuike Odo",
-      role: "CEO, Iken Care",
-    },
-  ],
-};
-
-export const faq: { eyebrow: string; title: string; lede: string; items: { q: string; a: string }[] } = {
+export const faq: {
+  eyebrow: string;
+  title: string;
+  lede: string;
+  ask: { label: string; href: string };
+  items: { q: string; a: string }[];
+} = {
   eyebrow: "FAQ",
   title: "Questions we hear most",
   lede: "If yours is not here, ask us. We reply within 24 hours.",
+  ask: { label: "Ask us a question", href: "#contact" },
   items: [
     {
       q: "How much does it cost?",
@@ -402,12 +386,14 @@ export const contact = {
     business: "Business name",
     contact: "Email or WhatsApp number",
     message: "What would you like to speed up?",
+    messagePlaceholder: "For example: answering WhatsApp questions about orders and delivery",
     messageHint: "A sentence or two is enough.",
     submit: "Send enquiry",
     sending: "Sending…",
     note: "We use your details only to reply to your enquiry.",
     sentTitle: "Thank you. Your enquiry is with us.",
     sentBody: "We reply within 24 hours to arrange your discovery call.",
+    sentWhatsapp: "Prefer to talk now?",
     failed: "That did not send. Please try again, or email us at",
   },
 };

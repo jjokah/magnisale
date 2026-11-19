@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { ArrowRight, Plus } from "lucide-react";
 import { SectionHeader } from "../components/SectionHeader";
 import { faq } from "../content";
 
@@ -8,8 +8,12 @@ export function Faq() {
   return (
     <section id="faq" className="section bg-surface-subtle">
       <div className="wrap grid items-start gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
-        <div className="lg:sticky lg:top-24">
+        <div className="flex flex-col gap-4 lg:sticky lg:top-24 lg:gap-6">
           <SectionHeader eyebrow={faq.eyebrow} title={faq.title} lede={faq.lede} />
+          <a href={faq.ask.href} className="link reveal-scroll min-h-11 self-start">
+            {faq.ask.label}
+            <ArrowRight size={18} strokeWidth={1.75} aria-hidden="true" />
+          </a>
         </div>
         <div className="reveal-scroll flex flex-col gap-3">
           {faq.items.map((item) => (

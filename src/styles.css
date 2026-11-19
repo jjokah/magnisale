@@ -434,6 +434,11 @@
   .input:focus-visible {
     border-color: var(--color-action);
   }
+  /* Example text only, never the label. Muted ink passes AA on white. */
+  .input::placeholder {
+    color: var(--color-fg-muted);
+    opacity: 1;
+  }
   textarea.input {
     height: auto;
     min-height: 7rem;

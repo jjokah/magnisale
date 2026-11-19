@@ -7,7 +7,6 @@ import { MobileCta } from "./sections/MobileCta";
 import { Nav } from "./sections/Nav";
 import { Privacy } from "./sections/Privacy";
 import { Process } from "./sections/Process";
-import { Proof } from "./sections/Proof";
 import { Solutions } from "./sections/Solutions";
 import { Tools } from "./sections/Tools";
 
@@ -27,7 +26,6 @@ export function App() {
         <Solutions />
         <Process />
         <Privacy />
-        <Proof />
         <Faq />
         <Contact />
       </main>

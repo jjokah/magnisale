@@ -14,7 +14,6 @@ Each of these is a field in `src/content.ts`. Until it is filled in, the part of
 |---|---|
 | `site.whatsapp` | Your number, digits only in international format (`2348012345678`). Turns on every "Chat on WhatsApp" button and the footer link. |
 | `site.formKey` | A Web3Forms access key, created with the inbox that should receive enquiries. Turns on the enquiry form in the contact section. Without it, that section offers email instead. |
-| `proof.items` | Real client results and testimonials. The results section appears once there is at least one. |
 
 Lines marked `TO CONFIRM` or `TO ADD` in `content.ts` are claims to check before they go live: the list of tools, naming the Nigeria Data Protection Act, and FAQ answers on project length and what happens after the three months of maintenance.
 
@@ -27,7 +26,7 @@ src/
   styles.css            Design tokens (@theme) and the shared classes: type, buttons, layout
   App.tsx               Section order
   sections/             Nav, Hero, WorkflowExample, Tools, Solutions, Process, Privacy,
-                        Proof, Faq, Contact, Footer, MobileCta
+                        Faq, Contact, Footer, MobileCta
   components/           Logo, Button, IconTile, StatusBadge, SectionHeader, EnquiryForm,
                         StructuredData (JSON-LD built from content.ts)
   hooks/                useActiveSection (highlights the nav link for the section on screen)

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ComponentProps } from "react";
-import { CircleCheck } from "lucide-react";
+import { ArrowUpRight, CircleCheck } from "lucide-react";
 import { Button } from "./Button";
-import { contact, site } from "../content";
+import { contact, site, whatsappCta, whatsappHref } from "../content";
 
 type State = "idle" | "sending" | "sent" | "failed";
 
@@ -63,6 +63,15 @@ export function EnquiryForm() {
           {form.sentTitle}
         </h3>
         <p className="text-fg-muted">{form.sentBody}</p>
+        {whatsappHref && (
+          <p className="flex flex-wrap items-center gap-x-2 text-fg-muted">
+            {form.sentWhatsapp}
+            <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="link min-h-11">
+              {whatsappCta}
+              <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true" />
+            </a>
+          </p>
+        )}
       </div>
     );
   }
@@ -107,6 +116,7 @@ export function EnquiryForm() {
           required
           maxLength={3000}
           rows={4}
+          placeholder={form.messagePlaceholder}
           aria-describedby="enquiry-message-hint"
           className="input"
         />
