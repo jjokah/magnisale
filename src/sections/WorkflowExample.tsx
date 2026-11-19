@@ -131,7 +131,9 @@ export function WorkflowExample() {
     >
       <figcaption className="sr-only">{workflowUi.caption}</figcaption>
 
-      <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3 sm:px-5">
+      {/* Tighter on phones so the pause button stays on the row; on the
+          narrowest screens it wraps below rather than being clipped. */}
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-3 py-3 sm:gap-3 sm:px-5">
         <div
           role="tablist"
           aria-label={workflowUi.tabs}
@@ -151,7 +153,7 @@ export function WorkflowExample() {
               aria-controls={`${id}-panel-${index}`}
               tabIndex={index === tab ? 0 : -1}
               onClick={() => select(index)}
-              className="h-10 rounded-pill px-3 text-small font-semibold text-ink-600 transition-[color,background-color,box-shadow] duration-220 ease-standard hover:text-fg aria-selected:bg-surface aria-selected:text-fg aria-selected:shadow-sm sm:px-4"
+              className="h-10 rounded-pill px-2.5 text-small font-semibold text-ink-600 transition-[color,background-color,box-shadow] duration-220 ease-standard hover:text-fg aria-selected:bg-surface aria-selected:text-fg aria-selected:shadow-sm sm:px-4"
             >
               {flow.tab}
             </button>
@@ -163,7 +165,7 @@ export function WorkflowExample() {
             type="button"
             aria-label={paused ? workflowUi.play : workflowUi.pause}
             onClick={() => setPaused(!paused)}
-            className="flex size-11 flex-none items-center justify-center rounded-pill text-ink-500 transition-[color,background-color] duration-140 ease-standard hover:bg-ink-100 hover:text-fg"
+            className="ml-auto flex size-11 flex-none items-center justify-center rounded-pill text-ink-500 transition-[color,background-color] duration-140 ease-standard hover:bg-ink-100 hover:text-fg"
           >
             {paused ? (
               <Play size={18} strokeWidth={1.75} aria-hidden="true" />
@@ -215,7 +217,9 @@ export function WorkflowExample() {
                           {step.by}
                         </p>
                         <span className="col-start-3 row-start-2 flex justify-end sm:row-span-2 sm:row-start-1">
-                          <StatusBadge status={now.status}>{now.label}</StatusBadge>
+                          <StatusBadge status={now.status} still={paused}>
+                            {now.label}
+                          </StatusBadge>
                         </span>
                       </div>
                     </li>

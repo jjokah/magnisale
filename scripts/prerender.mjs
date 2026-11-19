@@ -13,7 +13,8 @@ if (!template.includes(placeholder)) {
   throw new Error(`prerender: ${placeholder} not found in dist/index.html`);
 }
 
-await writeFile(page, template.replace(placeholder, `<div id="root">${render()}</div>`));
+// A function, so "$" sequences in the page text are not read as replacement patterns.
+await writeFile(page, template.replace(placeholder, () => `<div id="root">${render()}</div>`));
 // GitHub Pages serves 404.html for unknown paths, so old links land on the page.
 await copyFile(page, resolve("dist/404.html"));
 await rm(resolve("dist-server"), { recursive: true, force: true });

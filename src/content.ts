@@ -53,6 +53,8 @@ export const whatsappHref = site.whatsapp
 // send an enquiry, open WhatsApp or email.
 export const cta = {
   label: "Book a discovery call",
+  // For the phone bar, where the full label does not fit beside WhatsApp.
+  short: "Book a call",
   href: "#contact",
 };
 
@@ -403,7 +405,7 @@ export const contact = {
     messageHint: "A sentence or two is enough.",
     submit: "Send enquiry",
     sending: "Sending…",
-    note: "We use your details only to reply to your enquiry.",
+    note: "We use your details only to reply to your enquiry. They reach us through Web3Forms, our form service.",
     sentTitle: "Thank you. Your enquiry is with us.",
     sentBody: "We reply within 24 hours to arrange your discovery call.",
     failed: "That did not send. Please try again, or email us at",

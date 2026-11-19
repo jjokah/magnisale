@@ -28,18 +28,20 @@ export function MobileCta() {
   return (
     <div
       inert={!show}
-      className={`fixed inset-x-0 bottom-0 z-10 flex gap-3 border-t border-line bg-surface/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-220 ease-standard md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-10 flex gap-3 border-t border-line bg-surface/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-220 ease-standard motion-reduce:transition-none md:hidden ${
         show ? "" : "translate-y-full"
       }`}
     >
+      {/* Both buttons fit a 320 px screen: the short label, tighter padding,
+          and the call to action takes whatever width is left. */}
       {whatsappHref && (
-        <Button href={whatsappHref} variant="secondary" target="_blank" rel="noopener noreferrer" className="flex-1">
+        <Button href={whatsappHref} variant="secondary" target="_blank" rel="noopener noreferrer" className="flex-none px-4">
           <MessageCircle size={20} strokeWidth={1.75} aria-hidden="true" />
           {footer.whatsapp}
         </Button>
       )}
-      <Button href={cta.href} className="flex-1">
-        {cta.label}
+      <Button href={cta.href} className="min-w-0 flex-1 px-4">
+        {cta.short}
       </Button>
     </div>
   );

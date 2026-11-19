@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Logo } from "../components/Logo";
 import { footer, nav, site, whatsappHref } from "../content";
 
@@ -5,6 +6,11 @@ const linkClass = "flex min-h-11 items-center text-ui font-medium underline-offs
 const external = { target: "_blank", rel: "noopener noreferrer" };
 
 export function Footer() {
+  // The prerendered page shows the year it was built. If a new year has
+  // started since, the browser moves it on once the page has hydrated.
+  const [year, setYear] = useState(__BUILD_YEAR__);
+  useEffect(() => setYear(new Date().getFullYear()), []);
+
   return (
     <footer className="on-dark bg-surface-inverse text-white">
       <div className="wrap grid gap-12 py-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)] lg:py-16">
@@ -55,7 +61,7 @@ export function Footer() {
       <div className="wrap">
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-ink-700 py-6">
           <p className="text-small text-ink-300">
-            © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {site.name}
+            © {year} {site.name}
           </p>
           <p className="t-eyebrow text-accent">{site.tagline}</p>
         </div>

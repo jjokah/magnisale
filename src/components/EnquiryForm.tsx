@@ -5,12 +5,19 @@ import { contact, site } from "../content";
 
 type State = "idle" | "sending" | "sent" | "failed";
 
+// A stalled connection shows the failure message after this long, rather than
+// leaving "Sending…" up for minutes.
+const TIMEOUT_MS = 15000;
+// Enough to tell an email address from a WhatsApp number.
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 // Posts to the form service in site.formEndpoint. Without scripts the form
 // still submits as an ordinary POST; with them it reports the result in place.
 export function EnquiryForm() {
   const { form } = contact;
   const [state, setState] = useState<State>("idle");
   const sentHeading = useRef<HTMLHeadingElement>(null);
+  const busy = useRef(false);
 
   // The form is replaced by the confirmation, so move focus there with it.
   useEffect(() => {
@@ -19,20 +26,30 @@ export function EnquiryForm() {
 
   const onSubmit: ComponentProps<"form">["onSubmit"] = async (event) => {
     event.preventDefault();
+    // The submit button stays focusable while sending, so guard here instead.
+    if (busy.current) return;
     const data = Object.fromEntries(new FormData(event.currentTarget)) as Record<string, string>;
     // The service uses "email" as the reply-to address.
-    if (data.contact?.includes("@")) data.email = data.contact;
+    const reply = data.contact?.trim();
+    if (reply && EMAIL.test(reply)) data.email = reply;
+    busy.current = true;
     setState("sending");
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
     try {
       const response = await fetch(site.formEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(data),
+        signal: controller.signal,
       });
       const result: { success?: boolean } = await response.json();
       setState(response.ok && result.success ? "sent" : "failed");
     } catch {
       setState("failed");
+    } finally {
+      clearTimeout(timer);
+      busy.current = false;
     }
   };
 
@@ -64,16 +81,23 @@ export function EnquiryForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="field">
           <label htmlFor="enquiry-name">{form.name}</label>
-          <input id="enquiry-name" name="name" required autoComplete="name" className="input" />
+          <input id="enquiry-name" name="name" required maxLength={100} autoComplete="name" className="input" />
         </div>
         <div className="field">
           <label htmlFor="enquiry-business">{form.business}</label>
-          <input id="enquiry-business" name="business" required autoComplete="organization" className="input" />
+          <input
+            id="enquiry-business"
+            name="business"
+            required
+            maxLength={150}
+            autoComplete="organization"
+            className="input"
+          />
         </div>
       </div>
       <div className="field">
         <label htmlFor="enquiry-contact">{form.contact}</label>
-        <input id="enquiry-contact" name="contact" required className="input" />
+        <input id="enquiry-contact" name="contact" required maxLength={150} className="input" />
       </div>
       <div className="field">
         <label htmlFor="enquiry-message">{form.message}</label>
@@ -81,6 +105,7 @@ export function EnquiryForm() {
           id="enquiry-message"
           name="message"
           required
+          maxLength={3000}
           rows={4}
           aria-describedby="enquiry-message-hint"
           className="input"
@@ -101,7 +126,7 @@ export function EnquiryForm() {
       )}
 
       <div className="flex flex-col gap-3">
-        <Button type="submit" size="lg" disabled={sending} className="w-full">
+        <Button type="submit" size="lg" aria-disabled={sending || undefined} className="w-full">
           {sending ? form.sending : form.submit}
         </Button>
         <p className="text-center text-caption text-fg-muted">{form.note}</p>

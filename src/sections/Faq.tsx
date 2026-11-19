@@ -20,7 +20,7 @@ export function Faq() {
                   size={20}
                   strokeWidth={1.75}
                   aria-hidden="true"
-                  className="flex-none text-action transition-transform duration-220 ease-standard group-open:rotate-45"
+                  className="flex-none text-action transition-transform duration-220 ease-standard group-open:rotate-45 motion-reduce:transition-none"
                 />
               </summary>
               <p className="px-5 pb-5 text-fg-muted sm:px-6">{item.a}</p>

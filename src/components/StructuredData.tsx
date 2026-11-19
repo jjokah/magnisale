@@ -5,9 +5,12 @@ import { faq, site } from "../content";
 const data = [
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    // Organization rather than a LocalBusiness type, which Google expects to
+    // carry a street address.
+    "@type": "Organization",
     name: site.name,
     url: site.url,
+    logo: `${site.url}apple-touch-icon.png`,
     image: `${site.url}og.png`,
     email: site.email,
     ...(site.whatsapp && { telephone: `+${site.whatsapp}` }),

@@ -160,6 +160,13 @@
     /* Keeps anchored sections clear of the sticky navigation bar. */
     scroll-padding-top: 5rem;
   }
+  /* On phones, keeps whatever has keyboard focus clear of the fixed call to
+     action bar at the bottom. */
+  @media (max-width: 47.99rem) {
+    html {
+      scroll-padding-bottom: 5.5rem;
+    }
+  }
   body {
     background: var(--color-surface);
     color: var(--color-fg);
@@ -186,8 +193,11 @@
   .on-light :focus-visible {
     outline-color: var(--color-focus);
   }
+  /* The text colour is set too, so selected white text on dark sections stays
+     readable. */
   ::selection {
     background: var(--color-blue-100);
+    color: var(--color-fg);
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -275,13 +285,19 @@
       border-color var(--duration-fast) var(--ease-standard),
       transform var(--duration-fast) var(--ease-standard);
   }
-  .btn:hover {
-    transform: translateY(-1px);
+  /* Only where hovering is real, so the lift does not stick after a tap. */
+  @media (hover: hover) {
+    .btn:hover {
+      transform: translateY(-1px);
+    }
   }
   .btn:active {
     transform: scale(0.98);
   }
-  .btn:disabled {
+  /* aria-disabled too: the enquiry form uses it while sending, so the button
+     keeps keyboard focus. */
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
     opacity: 0.6;
     transform: none;
   }
