@@ -16,7 +16,7 @@ export function Footer({ home }: { home: boolean }) {
     <footer className="on-dark bg-surface-inverse text-white">
       <div className="wrap grid gap-12 py-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)] lg:py-16">
         <div className="flex flex-col items-start gap-4">
-          <Logo home={home} />
+          <Logo home={home} variant="wordmark" />
           <p className="max-w-[30rem] text-ink-300">{site.about}</p>
         </div>
 

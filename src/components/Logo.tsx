@@ -11,21 +11,39 @@ export function Mark({ className }: { className?: string }) {
   );
 }
 
-// Lockup: mark plus wordmark in Exo 2 Medium, capitals about 36% of the
-// mark's height so the mark leads, tracked 0.08em. The gap is one side bar's
-// width (24 px mark: 13 px name, 7 px gap; 28 px mark: 15 px name, 8 px gap).
+// The "lockup" is the mark plus the name in Exo 2 Medium, capitals about 36%
+// of the mark's height so the mark leads, tracked 0.08em. The gap is one side
+// bar's width (24 px mark: 13 px name, 7 px gap; 28 px mark: 15 px name, 8 px
+// gap). The "wordmark" is the name alone, which the design system sets heavy:
+// Exo 2 Black, tracked 0.02em.
 // On the home page it scrolls back to the top; elsewhere it leads home.
-export function Logo({ home, className = "" }: { home: boolean; className?: string }) {
+export function Logo({
+  home,
+  variant = "lockup",
+  className = "",
+}: {
+  home: boolean;
+  variant?: "lockup" | "wordmark";
+  className?: string;
+}) {
   return (
     <a
       href={home ? "#top" : "/"}
       aria-label={home ? "Magnisale, back to top" : "Magnisale home"}
       className={`flex min-h-11 items-center gap-[7px] lg:gap-2 ${className}`}
     >
-      <Mark className="h-6 w-auto lg:h-7" />
-      <span className="font-display text-[0.8125rem] leading-none font-medium tracking-[0.08em] lg:text-[0.9375rem]">
-        MAGNISALE
-      </span>
+      {variant === "lockup" ? (
+        <>
+          <Mark className="h-6 w-auto lg:h-7" />
+          <span className="font-display text-[0.8125rem] leading-none font-medium tracking-[0.08em] lg:text-[0.9375rem]">
+            MAGNISALE
+          </span>
+        </>
+      ) : (
+        <span className="font-display text-[1.25rem] leading-none font-black tracking-[0.02em] lg:text-[1.5rem]">
+          MAGNISALE
+        </span>
+      )}
     </a>
   );
 }
