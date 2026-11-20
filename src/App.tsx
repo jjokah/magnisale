@@ -1,16 +1,14 @@
 import { StructuredData } from "./components/StructuredData";
-import { Contact } from "./sections/Contact";
-import { Faq } from "./sections/Faq";
+import { BlogList } from "./pages/BlogList";
+import { BlogPost } from "./pages/BlogPost";
+import { Home } from "./pages/Home";
+import type { Route } from "./routes";
 import { Footer } from "./sections/Footer";
-import { Hero } from "./sections/Hero";
 import { MobileCta } from "./sections/MobileCta";
 import { Nav } from "./sections/Nav";
-import { Privacy } from "./sections/Privacy";
-import { Process } from "./sections/Process";
-import { Solutions } from "./sections/Solutions";
-import { Tools } from "./sections/Tools";
 
-export function App() {
+// The shell every page shares, around the page the address asks for.
+export function App({ route }: { route: Route }) {
   return (
     <>
       <a
@@ -19,19 +17,15 @@ export function App() {
       >
         Skip to content
       </a>
-      <Nav />
+      <Nav page={route.kind} />
       <main id="main">
-        <Hero />
-        <Tools />
-        <Solutions />
-        <Process />
-        <Privacy />
-        <Faq />
-        <Contact />
+        {route.kind === "home" && <Home />}
+        {route.kind === "blog" && <BlogList tag={route.tag} />}
+        {route.kind === "post" && <BlogPost post={route.post} html={route.html} />}
       </main>
-      <Footer />
+      <Footer home={route.kind === "home"} />
       <MobileCta />
-      <StructuredData />
+      <StructuredData route={route} />
     </>
   );
 }

@@ -12,9 +12,14 @@ export function Mark({ className }: { className?: string }) {
 }
 
 // Lockup: mark plus wordmark in Exo 2 Medium, capitals half the mark's height.
-export function Logo({ className = "" }: { className?: string }) {
+// On the home page it scrolls back to the top; elsewhere it leads home.
+export function Logo({ home, className = "" }: { home: boolean; className?: string }) {
   return (
-    <a href="#top" aria-label="Magnisale, back to top" className={`flex min-h-11 items-center gap-2 ${className}`}>
+    <a
+      href={home ? "#top" : "/"}
+      aria-label={home ? "Magnisale, back to top" : "Magnisale home"}
+      className={`flex min-h-11 items-center gap-2 ${className}`}
+    >
       <Mark className="h-6 w-auto lg:h-7" />
       <span className="font-display text-[1.0625rem] leading-none font-medium tracking-[0.07em] lg:text-[1.25rem]">
         MAGNISALE

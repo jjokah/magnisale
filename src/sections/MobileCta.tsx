@@ -4,8 +4,9 @@ import { Button } from "../components/Button";
 import { cta, footer, whatsappHref } from "../content";
 
 // On phones the hero's buttons scroll away quickly, so a bar at the bottom
-// keeps the call to action in reach. It stays out of the way while the hero,
-// the contact section or the footer is on screen.
+// keeps the call to action in reach. It stays out of the way while the hero
+// (or a blog page's header), the contact section, a post's closing call to
+// action or the footer is on screen.
 export function MobileCta() {
   const [show, setShow] = useState(false);
 
@@ -18,7 +19,7 @@ export function MobileCta() {
       }
       setShow(onScreen.size === 0);
     });
-    for (const selector of ["#top", "#contact", "footer"]) {
+    for (const selector of ["#top", "#contact", "#post-cta", "footer"]) {
       const element = document.querySelector(selector);
       if (element) observer.observe(element);
     }

@@ -2,16 +2,25 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "../components/Button";
 import { Logo } from "../components/Logo";
-import { cta, footer, nav } from "../content";
+import { blog, cta, footer, nav } from "../content";
 import { useActiveSection } from "../hooks/useActiveSection";
+import { mainNav, sectionOf } from "../navigation";
+import type { Route } from "../routes";
 
-const sectionIds = nav.map((item) => item.href.slice(1));
+const sectionIds = nav.map((item) => sectionOf(item.href)!);
 
-export function Nav() {
+export function Nav({ page }: { page: Route["kind"] }) {
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
   const active = useActiveSection(sectionIds);
+
+  // On the home page, the link for the section on screen; on the blog's
+  // pages, the Blog link.
+  const current = (href: string) => {
+    if (href === blog.link.href) return page === "home" ? undefined : "true";
+    return page === "home" && active === sectionOf(href) ? "location" : undefined;
+  };
 
   // While the phone menu is open: Escape closes it, the page behind does not
   // scroll, tabbing out of the menu closes it (so focus never lands on the
@@ -51,14 +60,14 @@ export function Nav() {
       {/* 95% white, so the bar stays near-white over the dark and blue bands. */}
       <header ref={header} className="sticky top-0 z-30 border-b border-line bg-surface/95 backdrop-blur-md">
         <nav aria-label="Main" className="wrap flex h-16 items-center justify-between gap-4 lg:h-20">
-          <Logo className="text-action" />
+          <Logo home={page === "home"} className="text-action" />
 
           <ul className="hidden items-center gap-6 md:flex lg:gap-8">
-            {nav.map((item) => (
+            {mainNav.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
-                  aria-current={active === item.href.slice(1) ? "location" : undefined}
+                  aria-current={current(item.href)}
                   className="relative py-3 text-ui font-medium text-ink-600 transition-[color] duration-140 ease-standard after:absolute after:inset-x-0 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-pill after:bg-action after:transition-transform after:duration-220 after:ease-standard hover:text-fg motion-reduce:after:transition-none aria-[current]:text-fg aria-[current]:after:scale-x-100"
                 >
                   {item.label}
@@ -96,12 +105,12 @@ export function Nav() {
             className="reveal absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-b border-line bg-surface shadow-lg [animation-duration:var(--duration-base)] md:hidden"
           >
             <ul className="wrap flex flex-col py-4">
-              {[...nav, footer.contactLink].map((item) => (
+              {[...mainNav, footer.contactLink].map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    aria-current={active === item.href.slice(1) ? "location" : undefined}
+                    aria-current={current(item.href)}
                     className="flex h-12 items-center text-body font-medium aria-[current]:font-semibold aria-[current]:text-action"
                   >
                     {item.label}

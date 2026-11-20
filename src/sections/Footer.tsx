@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Logo } from "../components/Logo";
-import { footer, nav, site, whatsappHref } from "../content";
+import { footer, site, whatsappHref } from "../content";
+import { mainNav } from "../navigation";
 
 const linkClass = "flex min-h-11 items-center text-ui font-medium underline-offset-4 hover:underline";
 const external = { target: "_blank", rel: "noopener noreferrer" };
 
-export function Footer() {
+export function Footer({ home }: { home: boolean }) {
   // The prerendered page shows the year it was built. If a new year has
   // started since, the browser moves it on once the page has hydrated.
   const [year, setYear] = useState(__BUILD_YEAR__);
@@ -15,14 +16,14 @@ export function Footer() {
     <footer className="on-dark bg-surface-inverse text-white">
       <div className="wrap grid gap-12 py-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)] lg:py-16">
         <div className="flex flex-col items-start gap-4">
-          <Logo />
+          <Logo home={home} />
           <p className="max-w-[30rem] text-ink-300">{site.about}</p>
         </div>
 
         <nav aria-label="Footer">
           <p className="t-eyebrow mb-2 text-ink-300">{footer.explore}</p>
           <ul>
-            {[...nav, footer.contactLink].map((item) => (
+            {[...mainNav, footer.contactLink].map((item) => (
               <li key={item.href}>
                 <a href={item.href} className={linkClass}>
                   {item.label}

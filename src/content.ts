@@ -55,16 +55,20 @@ export const cta = {
   label: "Book a discovery call",
   // For the phone bar, where the full label does not fit beside WhatsApp.
   short: "Book a call",
-  href: "#contact",
+  // From the root, so it also works on blog pages. On the home page it is
+  // still an in-page jump.
+  href: "/#contact",
 };
 
 export const whatsappCta = "Chat on WhatsApp";
 
+// Sections of the home page, linked from the root so the nav works on blog
+// pages too. src/navigation.ts adds the Blog link once there is a post.
 export const nav = [
-  { label: "Solutions", href: "#solutions" },
-  { label: "How we work", href: "#how-we-work" },
-  { label: "Data privacy", href: "#data-privacy" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Solutions", href: "/#solutions" },
+  { label: "How we work", href: "/#how-we-work" },
+  { label: "Data privacy", href: "/#data-privacy" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 const reassurance = ["Free discovery call", "No commitment", "Reply within 24 hours"];
@@ -402,6 +406,26 @@ export const contact = {
 export const footer = {
   explore: "Explore",
   contact: "Contact",
-  contactLink: { label: "Contact", href: "#contact" },
+  contactLink: { label: "Contact", href: "/#contact" },
   whatsapp: "WhatsApp",
+};
+
+// The blog. Posts are Markdown files in content/blog/ (see the README). The
+// Blog link and the blog's pages appear once there is a published post.
+export const blog = {
+  link: { label: "Blog", href: "/blog/" },
+  eyebrow: "Blog",
+  // TO CONFIRM: the blog's title, lede and closing call to action.
+  title: "Notes on putting AI agents to work",
+  lede: "What we learn building AI agents and automated workflows for businesses in Nigeria.",
+  allPosts: "All posts",
+  topics: "Topics",
+  topic: "Topic",
+  topicLede: (topic: string) => `Everything we have written on ${topic}.`,
+  draft: "Draft",
+  feedTitle: "Magnisale blog",
+  cta: {
+    title: "Put AI agents to work in your business",
+    body: "Tell us about the work you want to speed up. The discovery call is free, and every project is scoped around what you need.",
+  },
 };
