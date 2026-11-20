@@ -38,7 +38,7 @@ export const site = {
   // this is empty, and the contact section offers email instead.
   formKey: "6b5c3e85-8494-46f7-8bce-73dbb5d2258e",
   formEndpoint: "https://api.web3forms.com/submit",
-  about: "Magnisale builds AI agents and automated workflows for businesses in Nigeria.",
+  about: "Building autonomous AI agents for Nigerian businesses.",
   social: [
     { label: "X (Twitter)", href: "https://x.com/magnisale" },
     { label: "LinkedIn", href: "https://linkedin.com/company/magnisale" },
