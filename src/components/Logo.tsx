@@ -11,17 +11,19 @@ export function Mark({ className }: { className?: string }) {
   );
 }
 
-// Lockup: mark plus wordmark in Exo 2 Medium, capitals half the mark's height.
+// Lockup: mark plus wordmark in Exo 2 Medium, capitals about 36% of the
+// mark's height so the mark leads, tracked 0.08em. The gap is one side bar's
+// width (24 px mark: 13 px name, 7 px gap; 28 px mark: 15 px name, 8 px gap).
 // On the home page it scrolls back to the top; elsewhere it leads home.
 export function Logo({ home, className = "" }: { home: boolean; className?: string }) {
   return (
     <a
       href={home ? "#top" : "/"}
       aria-label={home ? "Magnisale, back to top" : "Magnisale home"}
-      className={`flex min-h-11 items-center gap-2 ${className}`}
+      className={`flex min-h-11 items-center gap-[7px] lg:gap-2 ${className}`}
     >
       <Mark className="h-6 w-auto lg:h-7" />
-      <span className="font-display text-[1.0625rem] leading-none font-medium tracking-[0.07em] lg:text-[1.25rem]">
+      <span className="font-display text-[0.8125rem] leading-none font-medium tracking-[0.08em] lg:text-[0.9375rem]">
         MAGNISALE
       </span>
     </a>
