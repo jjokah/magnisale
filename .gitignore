@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+*.log
+*.tsbuildinfo
+
+# Secrets and local settings
+.env
+.env.*
+!.env.example
+
+# Tool output
+.playwright-mcp/

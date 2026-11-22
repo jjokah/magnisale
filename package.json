@@ -1,0 +1,32 @@
+{
+  "name": "magnisale-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "The Magnisale app. First feature: Profiler.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @magnisale/api\" \"npm run dev -w @magnisale/web\"",
+    "build": "npm run build -w @magnisale/api && npm run build -w @magnisale/web",
+    "start": "npm start -w @magnisale/api",
+    "test": "npm test -w @magnisale/profile && npm test -w @magnisale/api",
+    "lint": "eslint .",
+    "typecheck": "npm run typecheck -w @magnisale/profile && npm run typecheck -w @magnisale/api && npm run typecheck -w @magnisale/web",
+    "db:generate": "npm run db:generate -w @magnisale/api"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^17.14.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.73.0"
+  }
+}
