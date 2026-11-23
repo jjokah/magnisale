@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { CollectionFieldDef, FieldDef, ItemFieldDef, Source } from "./fields.js";
+import type { CollectionFieldDef, FieldDef, ItemFieldDef, SectionId, Source } from "./fields.js";
 
 export interface LocationValue {
   country?: string;
@@ -42,6 +42,12 @@ export interface StoredField<T extends FieldValue = FieldValue> {
 
 /** One section of a saved profile, keyed by field key. A missing key is an empty field. */
 export type SectionData = Record<string, StoredField>;
+
+export interface ProfileView {
+  schemaVersion: number;
+  sections: Record<SectionId, SectionData>;
+  updatedAt: string | null;
+}
 
 /** What a client sends for one collection entry. Entries without an id are new. */
 export interface CollectionItemInput {

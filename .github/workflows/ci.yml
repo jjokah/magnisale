@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  ASTRO_TELEMETRY_DISABLED: 1
+  TURBO_TELEMETRY_DISABLED: 1
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: magnisale
+          POSTGRES_PASSWORD: magnisale
+          POSTGRES_DB: magnisale
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U magnisale"
+          --health-interval 3s
+          --health-timeout 3s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm build
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build -f docker/api.Dockerfile -t magnisale-api:ci .
+      - run: docker build -f docker/workers.Dockerfile -t magnisale-workers:ci .
+      - run: docker build -f docker/caddy.Dockerfile -t magnisale-caddy:ci .

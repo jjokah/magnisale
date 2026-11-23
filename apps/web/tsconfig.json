@@ -1,6 +1,7 @@
 {
   "extends": "@magnisale/config/tsconfig/react.json",
   "compilerOptions": {
+    "noUncheckedIndexedAccess": false,
     "types": ["astro/client", "node"]
   },
   "include": [".astro/types.d.ts", "src"]

@@ -1,0 +1,17 @@
+---
+// The blog index. A rest route so that it exists only once there is a post.
+import { loadBlog } from "../../blog/posts";
+import { BlogList } from "../../components/views/BlogList";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const { posts } = await loadBlog();
+  return posts.length > 0 ? [{ params: { index: undefined } }] : [];
+}
+
+const { posts, tags } = await loadBlog();
+---
+
+<Layout route={{ kind: "blog", tag: null }}>
+  <BlogList tag={null} posts={posts} tags={tags} />
+</Layout>

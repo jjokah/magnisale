@@ -1,6 +1,6 @@
-import { StatusBadge } from "./StatusBadge";
-import { formatDate, type PostMeta, type Tag } from "../blog/posts";
-import { blog } from "../content";
+import { StatusBadge } from "@magnisale/ui";
+import { formatDate, type PostMeta, type Tag } from "../blog/meta";
+import { blog } from "../content/site";
 import { postPath, tagPath } from "../routes";
 
 // A post's topics as links. Pills on the blog's pages; inside a card, plain

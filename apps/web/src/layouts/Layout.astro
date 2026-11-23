@@ -1,0 +1,72 @@
+---
+import dmSans from "@magnisale/ui/fonts/dm-sans.woff2?url";
+import exo2 from "@magnisale/ui/fonts/exo-2.woff2?url";
+import jetbrainsMono from "@magnisale/ui/fonts/jetbrains-mono-500.woff2?url";
+import { feedLink, headTags } from "../blog/head";
+import { loadBlog } from "../blog/posts";
+import { Footer } from "../components/sections/Footer";
+import { MobileCta } from "../components/sections/MobileCta";
+import { Nav } from "../components/sections/Nav";
+import { StructuredData } from "../components/StructuredData";
+import type { Route } from "../routes";
+import "../styles.css";
+
+interface Props {
+  route: Route;
+}
+
+const { route } = Astro.props;
+const { posts } = await loadBlog();
+const hasBlog = posts.length > 0;
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1A3AF5" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <Fragment set:html={headTags(route)} />
+
+    <meta property="og:site_name" content="Magnisale" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content="https://magnisale.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Magnisale: AI agents that take the routine work off your team" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@magnisale" />
+    <meta name="twitter:image" content="https://magnisale.com/og.png" />
+
+    <link rel="preload" href={exo2} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={dmSans} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={jetbrainsMono} as="font" type="font/woff2" crossorigin />
+    {hasBlog && <Fragment set:html={feedLink} />}
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-40 focus:rounded-md focus:bg-surface focus:px-4 focus:py-3 focus:font-semibold"
+    >
+      Skip to content
+    </a>
+    <Nav client:load page={route.kind} hasBlog={hasBlog} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer home={route.kind === "home"} hasBlog={hasBlog} />
+    <MobileCta client:idle />
+    <StructuredData route={route} />
+    <script>
+      // The page shows the year it was built. If a new year has started since,
+      // this moves it on.
+      for (const element of document.querySelectorAll("[data-current-year]")) {
+        element.textContent = String(new Date().getFullYear());
+      }
+    </script>
+  </body>
+</html>

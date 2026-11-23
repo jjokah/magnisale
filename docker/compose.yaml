@@ -1,0 +1,92 @@
+# The platform on one VM. Run from the repo root:
+#   docker compose --env-file .env -f docker/compose.yaml up -d --build
+# The marketing site is not here: it is served by GitHub Pages.
+name: magnisale
+
+x-app-env: &app-env
+  NODE_ENV: production
+  DATABASE_URL: postgres://magnisale_app:${APP_DB_PASSWORD:?set APP_DB_PASSWORD}@postgres:5432/magnisale
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: magnisale
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: magnisale
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U magnisale"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # Runs once before the API and workers, so they never race to migrate.
+  migrate:
+    build:
+      context: ..
+      dockerfile: docker/workers.Dockerfile
+    image: magnisale-workers
+    command: ["node", "migrate.js"]
+    restart: "no"
+    environment:
+      NODE_ENV: production
+      OWNER_DATABASE_URL: postgres://magnisale:${POSTGRES_PASSWORD}@postgres:5432/magnisale
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/api.Dockerfile
+    image: magnisale-api
+    restart: unless-stopped
+    environment:
+      <<: *app-env
+      APP_URL: ${APP_URL:?set APP_URL}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?set BETTER_AUTH_SECRET}
+      # Only Caddy can reach this container, on the private compose network.
+      TRUST_PROXY: uniquelocal
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      SMTP_URL: ${SMTP_URL:-}
+      MAIL_FROM: ${MAIL_FROM:-Magnisale <hello@magnisale.com>}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  workers:
+    image: magnisale-workers
+    restart: unless-stopped
+    environment: *app-env
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  # The only service with a published port.
+  caddy:
+    build:
+      context: ..
+      dockerfile: docker/caddy.Dockerfile
+    image: magnisale-caddy
+    restart: unless-stopped
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:-localhost}
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  postgres-data:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,18 @@
+---
+import type { PostMeta } from "../../blog/meta";
+import { loadBlog } from "../../blog/posts";
+import { BlogPost } from "../../components/views/BlogPost";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const { posts } = await loadBlog();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: PostMeta };
+const { html } = await loadBlog();
+---
+
+<Layout route={{ kind: "post", post }}>
+  <BlogPost post={post} html={html(post.slug)} />
+</Layout>

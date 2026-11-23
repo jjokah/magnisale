@@ -1,0 +1,18 @@
+---
+import type { Tag } from "../../../blog/meta";
+import { loadBlog } from "../../../blog/posts";
+import { BlogList } from "../../../components/views/BlogList";
+import Layout from "../../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const { tags } = await loadBlog();
+  return tags.map((tag) => ({ params: { tag: tag.slug }, props: { tag } }));
+}
+
+const { tag } = Astro.props as { tag: Tag };
+const { posts, tags } = await loadBlog();
+---
+
+<Layout route={{ kind: "blog", tag }}>
+  <BlogList tag={tag} posts={posts} tags={tags} />
+</Layout>

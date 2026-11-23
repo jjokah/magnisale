@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ComponentProps } from "react";
 import { ArrowUpRight, CircleCheck } from "lucide-react";
-import { Button } from "./Button";
-import { contact, site, whatsappCta, whatsappHref } from "../content";
+import { Button } from "@magnisale/ui";
+import { contact, site, whatsappCta, whatsappHref } from "../content/site";
 
 type State = "idle" | "sending" | "sent" | "failed";
 

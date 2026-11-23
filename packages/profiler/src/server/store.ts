@@ -13,6 +13,7 @@ import {
   type CollectionItem,
   type CollectionItemInput,
   type FieldValue,
+  type ProfileView,
   type SectionData,
 } from "../values.js";
 
@@ -30,12 +31,6 @@ export async function seedProfile(tx: Tx, companyId: string, name: string): Prom
       data: section === "identity" ? { brandName: { value: name, source: ownerSource() } } : {},
     })),
   );
-}
-
-export interface ProfileView {
-  schemaVersion: number;
-  sections: Record<SectionId, SectionData>;
-  updatedAt: string | null;
 }
 
 export async function readProfile(db: Db, companyId: string): Promise<ProfileView> {

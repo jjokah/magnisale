@@ -1,6 +1,6 @@
 // The privacy notice. While `draft` is true the page says so at the top.
 // Before the pilot: have every line marked TO CONFIRM checked, set `draft` to
-// false and bump PRIVACY_VERSION in apps/api/src/routes/auth.ts.
+// false and bump PRIVACY_VERSION in packages/auth/src/index.ts.
 
 export const privacyNotice = {
   draft: true,

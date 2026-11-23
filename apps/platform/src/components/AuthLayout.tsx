@@ -1,6 +1,8 @@
+import { Button } from "@magnisale/ui";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
-import { useMeta } from "../lib/auth";
+import { authCall, authClient, metaQuery } from "../lib/auth";
 import { Logo } from "./Logo";
 
 export function AuthLayout({ title, lede, children }: { title: string; lede?: string; children: ReactNode }) {
@@ -20,15 +22,19 @@ export function AuthLayout({ title, lede, children }: { title: string; lede?: st
   );
 }
 
-/** Shown only when Google sign-in is configured. A full page load, not a route. */
+/** Shown only when Google sign-in is configured. Leaves the app for Google. */
 export function GoogleButton({ label }: { label: string }) {
-  const meta = useMeta();
+  const meta = useQuery(metaQuery);
+  const start = useMutation({
+    mutationFn: () =>
+      authCall(authClient.signIn.social({ provider: "google", callbackURL: "/", errorCallbackURL: "/sign-in" })),
+  });
   if (!meta.data?.google) return null;
   return (
     <>
-      <a href="/api/v1/auth/google/start" className="btn btn-secondary w-full">
+      <Button variant="secondary" className="w-full" disabled={start.isPending} onClick={() => start.mutate()}>
         {label}
-      </a>
+      </Button>
       <div className="my-5 flex items-center gap-3 text-caption text-fg-muted">
         <span className="h-px flex-1 bg-line" />
         or

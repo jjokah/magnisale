@@ -1,4 +1,4 @@
-import { faq, site } from "../content";
+import { faq, site } from "../content/site";
 import { postPath, type Route } from "../routes";
 
 // Search engines read this. It is built from content.ts and the posts, so it

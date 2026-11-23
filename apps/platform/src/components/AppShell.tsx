@@ -1,26 +1,30 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Link, Navigate, Outlet, useNavigate } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { api } from "../lib/api";
-import { useMe } from "../lib/auth";
+import { authCall, authClient, useMe } from "../lib/auth";
 import { Logo } from "./Logo";
 
 const NAV = [
-  { to: "/profile", label: "Profile" },
+  { to: "/profiler", label: "Profile" },
   { to: "/settings", label: "Settings" },
-];
+] as const;
+
+const navLink = "flex min-h-11 items-center rounded-md px-3 text-ui font-semibold transition-colors";
 
 export function AppShell() {
   const me = useMe();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const signOut = useMutation({
-    mutationFn: () => api.post("/auth/sign-out"),
-    onSuccess: () => {
+    mutationFn: () => authCall(authClient.signOut()),
+    onSuccess: async () => {
       queryClient.clear();
-      navigate("/sign-in", { replace: true });
+      await navigate({ to: "/sign-in", replace: true });
     },
   });
+
+  // A session that ended mid-visit.
+  if (me.data === null) return <Navigate to="/sign-in" replace />;
 
   return (
     <div className="min-h-dvh bg-surface-subtle">
@@ -29,22 +33,18 @@ export function AppShell() {
           <Logo />
           <nav aria-label="Main" className="flex flex-1 items-center gap-1">
             {NAV.map((item) => (
-              <NavLink
+              <Link
                 key={item.to}
                 to={item.to}
-                className={({ isActive }) =>
-                  `flex min-h-11 items-center rounded-md px-3 text-ui font-semibold transition-colors ${
-                    isActive ? "bg-action-tint text-action" : "text-fg-muted hover:text-fg"
-                  }`
-                }
+                className={navLink}
+                activeProps={{ className: "bg-action-tint text-action" }}
+                inactiveProps={{ className: "text-fg-muted hover:text-fg" }}
               >
                 {item.label}
-              </NavLink>
+              </Link>
             ))}
           </nav>
-          <span className="hidden max-w-48 truncate text-small text-fg-muted md:block">
-            {me.data?.organization?.name}
-          </span>
+          <span className="hidden max-w-48 truncate text-small text-fg-muted md:block">{me.data?.company?.name}</span>
           <button
             type="button"
             onClick={() => signOut.mutate()}
