@@ -1,0 +1,27 @@
+{
+  "name": "@magnisale/config",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Shared TypeScript, ESLint and server build configuration.",
+  "exports": {
+    "./tsconfig/*": "./tsconfig/*",
+    "./eslint": "./eslint.js",
+    "./build-node": "./build-node.mjs"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@eslint/js": "catalog:",
+    "esbuild": "catalog:",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^17.14.0",
+    "typescript-eslint": "^8.73.0"
+  },
+  "devDependencies": {
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

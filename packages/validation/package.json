@@ -1,0 +1,21 @@
+{
+  "name": "@magnisale/validation",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Request and response schemas shared by the API and the platform.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@magnisale/config": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

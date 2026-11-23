@@ -1,0 +1,27 @@
+{
+  "name": "magnisale",
+  "private": true,
+  "type": "module",
+  "description": "Magnisale: the marketing site, customer platform, API and workers.",
+  "packageManager": "pnpm@12.14.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "turbo run dev --filter=@magnisale/api --filter=@magnisale/workers --filter=@magnisale/platform",
+    "dev:web": "turbo run dev --filter=@magnisale/web",
+    "build": "turbo run build",
+    "test": "turbo run test --concurrency=1",
+    "lint": "eslint .",
+    "typecheck": "turbo run typecheck",
+    "db:up": "docker compose -f docker/compose.dev.yaml up -d --wait",
+    "db:generate": "pnpm --filter @magnisale/db generate",
+    "db:migrate": "pnpm --filter @magnisale/workers migrate"
+  },
+  "devDependencies": {
+    "@magnisale/config": "workspace:*",
+    "eslint": "catalog:",
+    "turbo": "^2.11.13",
+    "typescript": "catalog:"
+  }
+}

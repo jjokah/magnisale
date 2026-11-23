@@ -1,0 +1,24 @@
+{
+  "name": "@magnisale/ui",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Magnisale Design System 1.1: tokens, fonts and shared React components.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme.css": "./theme.css",
+    "./fonts/*": "./fonts/*"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@magnisale/config": "workspace:*",
+    "@types/react": "catalog:",
+    "react": "catalog:",
+    "typescript": "catalog:"
+  }
+}

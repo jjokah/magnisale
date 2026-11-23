@@ -1,0 +1,4 @@
+{
+  "extends": "@magnisale/config/tsconfig/node.json",
+  "include": ["src"]
+}

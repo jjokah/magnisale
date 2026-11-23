@@ -1,7 +1,12 @@
 node_modules/
 dist/
-dist-server/
-.env*
+.astro/
+.turbo/
+coverage/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
 .DS_Store
 .playwright-mcp/
-npm-debug.log*
+*.log

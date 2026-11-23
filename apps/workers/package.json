@@ -1,0 +1,30 @@
+{
+  "name": "@magnisale/workers",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=../../.env src/index.ts",
+    "migrate": "tsx --env-file-if-exists=../../.env src/migrate.ts",
+    "build": "node build.mjs",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@magnisale/db": "workspace:*",
+    "@magnisale/queue": "workspace:*",
+    "drizzle-orm": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@magnisale/config": "workspace:*",
+    "@types/node": "catalog:",
+    "esbuild": "catalog:",
+    "@types/pg": "catalog:",
+    "pg": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

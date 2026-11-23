@@ -1,0 +1,24 @@
+{
+  "name": "@magnisale/auth",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Better Auth configuration, with organisations as companies.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@magnisale/db": "workspace:*",
+    "better-auth": "catalog:",
+    "drizzle-orm": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@magnisale/config": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

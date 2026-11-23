@@ -1,0 +1,22 @@
+{
+  "name": "@magnisale/integrations",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Third-party services. Email today; Hunter and Apify arrive with Closer.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "nodemailer": "^10.6.1"
+  },
+  "devDependencies": {
+    "@magnisale/config": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/nodemailer": "^8.0.2",
+    "typescript": "catalog:"
+  }
+}

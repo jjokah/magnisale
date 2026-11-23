@@ -1,20 +1,27 @@
 {
-  "name": "@magnisale/profile",
+  "name": "@magnisale/profiler",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "The company profile: its fields, validation and value handling, shared by the API and the web app.",
+  "description": "Profiler's domain logic. The main entry is browser-safe; ./server is not.",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./server": "./src/server/index.ts"
   },
   "scripts": {
-    "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
-    "zod": "^4.6.7"
+    "@magnisale/db": "workspace:*",
+    "drizzle-orm": "catalog:",
+    "sharp": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "vitest": "^5.1.1"
+    "@magnisale/config": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

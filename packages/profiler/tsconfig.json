@@ -1,10 +1,7 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "@magnisale/config/tsconfig/node.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "lib": ["ES2023", "DOM"],
-    "types": []
+    "lib": ["ES2023", "DOM"]
   },
   "include": ["src", "tests"]
 }

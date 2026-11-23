@@ -3,37 +3,40 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "exports": {
+    "./types": "./src/types.ts"
+  },
   "scripts": {
     "dev": "tsx watch --env-file-if-exists=../../.env src/index.ts",
-    "build": "node scripts/build.mjs",
+    "build": "node build.mjs",
     "start": "node dist/index.js",
-    "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "db:generate": "drizzle-kit generate"
+    "test": "vitest run"
   },
   "dependencies": {
-    "@fastify/cookie": "^11.1.5",
-    "@fastify/helmet": "^13.2.0",
-    "@fastify/multipart": "^10.1.9",
-    "@fastify/rate-limit": "^11.3.0",
-    "@fastify/static": "^10.1.12",
-    "arctic": "^3.7.0",
-    "bcryptjs": "^3.0.3",
-    "drizzle-orm": "^0.45.4",
-    "fastify": "^5.12.8",
-    "nodemailer": "^10.6.1",
-    "pg": "^8.23.1",
-    "sharp": "^0.35.5",
-    "zod": "^4.6.7"
+    "@hono/node-server": "catalog:",
+    "@hono/zod-validator": "catalog:",
+    "@magnisale/auth": "workspace:*",
+    "@magnisale/db": "workspace:*",
+    "@magnisale/integrations": "workspace:*",
+    "@magnisale/profiler": "workspace:*",
+    "@magnisale/validation": "workspace:*",
+    "better-auth": "catalog:",
+    "drizzle-orm": "catalog:",
+    "hono": "catalog:",
+    "proxy-addr": "^2.0.8",
+    "sharp": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@magnisale/profile": "*",
-    "@types/node": "^24.12.0",
-    "@types/nodemailer": "^8.0.2",
-    "@types/pg": "^8.23.1",
-    "drizzle-kit": "^0.31.11",
-    "esbuild": "^0.27.0",
-    "tsx": "^4.23.15",
-    "vitest": "^5.1.1"
+    "@magnisale/config": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/proxy-addr": "^2.0.3",
+    "esbuild": "catalog:",
+    "pg": "catalog:",
+    "@types/pg": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }
