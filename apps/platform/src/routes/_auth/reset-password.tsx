@@ -7,14 +7,12 @@ import { errorMessage } from "../../lib/api";
 import { authCall, authClient } from "../../lib/auth";
 import { ME_KEY } from "../../lib/query";
 
-export const Route = createFileRoute("/_auth/reset-password")({
-  validateSearch: (search: Record<string, unknown>): { token?: string } =>
-    typeof search.token === "string" ? { token: search.token } : {},
-  component: ResetPassword,
-});
+export const Route = createFileRoute("/_auth/reset-password")({ component: ResetPassword });
 
 function ResetPassword() {
-  const { token = "" } = Route.useSearch();
+  // Read raw: the router parses search values as JSON, which could turn an
+  // all-digit token into a number.
+  const [token] = useState(() => new URLSearchParams(window.location.search).get("token") ?? "");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
