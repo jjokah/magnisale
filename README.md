@@ -75,7 +75,7 @@ pnpm db:migrate     # apply migrations
 - Session cookies are httpOnly and signed, so a database leak alone cannot produce a working session.
 - State-changing `/api/v1` calls need the `x-magnisale-csrf` header. Better Auth checks the `Origin` of its own routes, forced on in every environment because it otherwise switches off under `NODE_ENV=test`.
 - A Google sign-in never joins an existing account by email alone, which blocks pre-account hijacking.
-- `TRUST_PROXY` must name the real reverse proxy, or all visitors share one sign-in rate limit. Do not set it to a number: Fastify-style hop counts are not supported.
+- `TRUST_PROXY` must name the real reverse proxy, as addresses, CIDRs or the presets `loopback`, `linklocal` and `uniquelocal`. If it is wrong, all visitors share one sign-in rate limit.
 
 ## Deploying the platform
 

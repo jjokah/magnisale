@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: 24
       - run: corepack enable
-      - run: pnpm install --frozen-lockfile --filter @magnisale/web...
+      - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run build --filter=@magnisale/web
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
