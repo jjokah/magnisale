@@ -4,7 +4,7 @@ import { defineConfig } from "astro/config";
 
 export default defineConfig({
   site: "https://magnisale.com",
-  // GitHub Pages serves each page from folder/index.html.
+  // Each page is served from folder/index.html (see wrangler.jsonc).
   trailingSlash: "always",
   build: { format: "directory", assets: "assets" },
   integrations: [react()],

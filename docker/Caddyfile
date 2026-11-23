@@ -1,11 +1,23 @@
-# The only public entry point: the platform at /, the API at /api.
-{$APP_DOMAIN:localhost} {
+# The platform at /, the API at /api. Reached only through the Cloudflare Tunnel,
+# which ends TLS, so this port is never published.
+{
+	auto_https off
+	servers {
+		trusted_proxies static private_ranges
+		client_ip_headers CF-Connecting-IP
+	}
+}
+
+:80 {
 	encode zstd gzip
 
-	# Caddy replaces any X-Forwarded-For a client sends with the real address,
-	# which is what the API's rate limits key off.
 	handle /api/* {
-		reverse_proxy api:8080
+		reverse_proxy api:8080 {
+			# One address only, Cloudflare's view of the visitor. Anything a
+			# client put in X-Forwarded-For is dropped, because the API's rate
+			# limits key off this header.
+			header_up X-Forwarded-For {client_ip}
+		}
 	}
 
 	handle {

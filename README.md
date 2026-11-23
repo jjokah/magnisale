@@ -4,7 +4,7 @@ One TypeScript monorepo for the Magnisale website, customer platform, API and ba
 
 ```
 apps/
-  web/            Astro marketing site, magnisale.com (GitHub Pages)
+  web/            Astro marketing site, magnisale.com (Cloudflare)
   platform/       React + Vite + TanStack Router, app.magnisale.com
   api/            Hono API, served at app.magnisale.com/api
   workers/        Background jobs on pg-boss, and the migrate step
@@ -18,6 +18,7 @@ packages/
   integrations/   Third-party services (email today)
   config/         TypeScript, ESLint and server build configuration
 docker/           Dockerfiles, Caddyfile and compose files
+infra/            Cloudflare and Google Cloud setup, and the hosting runbook
 ```
 
 `agent-core` arrives with Profiler milestone 2. Closer stays in its own repo until after the Profiler pilot, then moves in here.
@@ -76,18 +77,14 @@ pnpm db:migrate     # apply migrations
 - State-changing `/api/v1` calls need the `x-magnisale-csrf` header. Better Auth checks the `Origin` of its own routes, forced on in every environment because it otherwise switches off under `NODE_ENV=test`.
 - A Google sign-in never joins an existing account by email alone, which blocks pre-account hijacking.
 - `TRUST_PROXY` must name the real reverse proxy, as addresses, CIDRs or the presets `loopback`, `linklocal` and `uniquelocal`. If it is wrong, all visitors share one sign-in rate limit.
+- Caddy takes the visitor's address from Cloudflare's `CF-Connecting-IP` and replaces any `X-Forwarded-For` a client sent.
 
-## Deploying the platform
+## Deploying
 
-```bash
-cp .env.example .env   # fill in the production section
-docker compose --env-file .env -f docker/compose.yaml up -d --build
-```
-
-Caddy is the only service with a public port. It gets a certificate for `APP_DOMAIN`, serves the platform and routes `/api` to the API. The website deploys separately to GitHub Pages when it changes on `main`.
+The site runs on Cloudflare and the platform on a Google Cloud VM behind a Cloudflare Tunnel. A push to `main` runs the checks and deploys what changed. [infra/README.md](infra/README.md) has the first-time setup and day-to-day commands.
 
 ## Before the pilot
 
 - Check every `TO CONFIRM` line in `apps/platform/src/content/privacy.ts`, set `draft` to `false`, and bump `PRIVACY_VERSION` in `packages/auth/src/index.ts`.
 - Create the Google OAuth client and choose an SMTP provider.
-- Decide hosting, and keep backup retention at 30 days or less to honour the deletion promise.
+- Practise restoring a VM snapshot. Backups are kept 14 days, inside the 30-day deletion promise.

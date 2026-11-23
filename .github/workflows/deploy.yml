@@ -1,0 +1,112 @@
+# On every push to main: run the checks, then deploy only what changed.
+# The site goes to Cloudflare, the platform to the Google Cloud VM.
+# Each deploy stays off until its repo variable is set. See infra/README.md.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: What to deploy
+        type: choice
+        options: [all, web, platform]
+        default: all
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    uses: ./.github/workflows/ci.yml
+
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      web: ${{ steps.diff.outputs.web }}
+      platform: ${{ steps.diff.outputs.platform }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - id: diff
+        env:
+          BEFORE: ${{ github.event.before }}
+          TARGET: ${{ inputs.target }}
+        run: |
+          web=false
+          platform=false
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            if [ "$TARGET" != "platform" ]; then web=true; fi
+            if [ "$TARGET" != "web" ]; then platform=true; fi
+          elif ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            web=true
+            platform=true
+          else
+            files=$(git diff --name-only "$BEFORE" "$GITHUB_SHA")
+            shared='^(pnpm-lock\.yaml|pnpm-workspace\.yaml|package\.json|turbo\.json|packages/config/|packages/ui/)'
+            if grep -Eq "$shared|^apps/web/" <<< "$files"; then web=true; fi
+            if grep -Eq "$shared|^apps/(api|platform|workers)/|^packages/|^docker/|^infra/gcp/vm-deploy\.sh" <<< "$files"; then platform=true; fi
+          fi
+          echo "web=$web" >> "$GITHUB_OUTPUT"
+          echo "platform=$platform" >> "$GITHUB_OUTPUT"
+
+  web:
+    needs: [checks, changes]
+    if: needs.changes.outputs.web == 'true' && vars.CLOUDFLARE_ACCOUNT_ID != ''
+    runs-on: ubuntu-latest
+    env:
+      ASTRO_TELEMETRY_DISABLED: 1
+      TURBO_TELEMETRY_DISABLED: 1
+      WRANGLER_SEND_METRICS: false
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run build --filter=@magnisale/web
+      # --env= targets the production config rather than the preview one.
+      - run: pnpm --filter @magnisale/web exec wrangler deploy --env=
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+
+  platform:
+    needs: [checks, changes]
+    if: needs.changes.outputs.platform == 'true' && vars.GCP_PROJECT_ID != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      REGISTRY_HOST: ${{ vars.GCP_REGION }}-docker.pkg.dev
+      REGISTRY: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/magnisale
+      ZONE: ${{ vars.GCP_ZONE }}
+      VM: magnisale-platform
+    steps:
+      - uses: actions/checkout@v7
+      - uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+      - uses: google-github-actions/setup-gcloud@v3
+      - run: gcloud auth configure-docker "$REGISTRY_HOST" --quiet
+      - name: Build and push the images
+        run: |
+          for service in api workers caddy; do
+            docker build -f "docker/$service.Dockerfile" -t "$REGISTRY/$service:$GITHUB_SHA" .
+            docker push "$REGISTRY/$service:$GITHUB_SHA"
+          done
+      - name: Roll out on the VM
+        run: |
+          gcloud compute scp docker/compose.yaml infra/gcp/vm-deploy.sh "$VM:~/" \
+            --zone "$ZONE" --tunnel-through-iap --quiet
+          gcloud compute ssh "$VM" --zone "$ZONE" --tunnel-through-iap --quiet \
+            --command "sudo bash ~/vm-deploy.sh '$REGISTRY' '$GITHUB_SHA' \"\$HOME/compose.yaml\""

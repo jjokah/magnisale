@@ -7,6 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "preview:cloudflare": "wrangler dev --port 4322",
+    "deploy:preview": "wrangler deploy --env preview",
     "typecheck": "astro check"
   },
   "dependencies": {
@@ -26,6 +28,7 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "tailwindcss": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "wrangler": "^4.166.0"
   }
 }

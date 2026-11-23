@@ -7,7 +7,7 @@ export type Route =
   | { kind: "blog"; tag: Tag | null }
   | { kind: "post"; post: PostMeta };
 
-// Trailing slashes, as GitHub Pages serves each page from folder/index.html.
+// Trailing slashes, as each page is served from folder/index.html.
 export const blogPath = "/blog/";
 export const postPath = (slug: string) => `/blog/${slug}/`;
 export const tagPath = (slug: string) => `/blog/tags/${slug}/`;

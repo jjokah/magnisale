@@ -106,9 +106,8 @@ Three self-hosted files in `packages/ui/fonts/`, all under the SIL Open Font Lic
 
 ## Deploy
 
-The site is hosted on **GitHub Pages** at `magnisale.com`. `.github/workflows/pages.yml` builds `apps/web` and publishes its `dist/` whenever the site, the shared UI or the lockfile changes on `main`.
+The site is a static **Cloudflare Worker** at `magnisale.com`, configured in `wrangler.jsonc`. `.github/workflows/deploy.yml` builds `apps/web` and publishes its `dist/` whenever the site, the shared UI or the lockfile changes on `main`. First-time setup is in [infra/README.md](../../infra/README.md).
 
-- In the repo settings, Pages **Source** is set to *GitHub Actions*, and the custom domain is set to `magnisale.com`.
-- DNS lives at Namecheap: four `A` records on `@` point to GitHub Pages, and `www` is a CNAME to `jjokah.github.io`.
-- The site uses root-relative paths (`/assets/…`), so it only renders correctly on the custom domain, not at `jjokah.github.io/magnisale/`.
+- `pnpm --filter @magnisale/web preview:cloudflare` serves the last build on Cloudflare's runtime, on port 4322.
+- `public/_headers` sets response headers. Cloudflare reads it at deploy time and does not serve it.
 - `dist/404.html` is the home page, so unknown addresses (links to the old site, for example) land on the home page instead of an error page.

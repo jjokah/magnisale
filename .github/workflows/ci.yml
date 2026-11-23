@@ -1,9 +1,9 @@
 name: CI
 
+# Pushes to main run these checks through deploy.yml, before anything ships.
 on:
-  push:
-    branches: [main]
   pull_request:
+  workflow_call:
 
 env:
   ASTRO_TELEMETRY_DISABLED: 1

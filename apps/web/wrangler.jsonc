@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // A static-only Worker: no script runs, so requests are free and unlimited.
+  "name": "magnisale-web",
+  "compatibility_date": "2026-11-23",
+  "assets": {
+    "directory": "./dist/",
+    // /blog redirects to /blog/, which is served from blog/index.html.
+    "html_handling": "force-trailing-slash",
+    // dist/404.html is the home page, served with a 404 status.
+    "not_found_handling": "404-page"
+  },
+  "workers_dev": false,
+  "preview_urls": false,
+  // Needs magnisale.com to be an active zone on Cloudflare.
+  "routes": [{ "pattern": "magnisale.com", "custom_domain": true }],
+  "env": {
+    // `pnpm --filter @magnisale/web deploy:preview`: a workers.dev copy for
+    // checking the site before DNS moves. It touches no domain.
+    "preview": {
+      "workers_dev": true,
+      "routes": []
+    }
+  }
+}
