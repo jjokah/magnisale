@@ -32,7 +32,9 @@ if ($LASTEXITCODE -ne 0) { throw "Cannot read the secret. Run infra/gcp/setup.ps
 
 $file = Join-Path ([System.IO.Path]::GetTempPath()) "magnisale-env-$([guid]::NewGuid())"
 try {
-  @($current | Where-Object { $_ -and -not $_.StartsWith("$Key=") }) + "$Key='$value'" | Set-Content -Path $file
+  $lines = @($current | ForEach-Object { $_.TrimEnd("`r") } | Where-Object { $_ -and -not $_.StartsWith("$Key=") }) + "$Key='$value'"
+  # Unix line endings: the VM reads this file, and a stray \r would end up in every value.
+  [System.IO.File]::WriteAllText($file, ($lines -join "`n") + "`n")
   & $gcloudBin --project $Project --quiet secrets versions add $SecretName --data-file $file
   if ($LASTEXITCODE -ne 0) { throw "Could not save the new value." }
 }

@@ -13,7 +13,7 @@ SECRET=magnisale-platform-env
 umask 077
 cd "$ROOT"
 install -m 0600 "$COMPOSE_SOURCE" compose.yaml
-gcloud secrets versions access latest --secret="$SECRET" > .env.next
+gcloud secrets versions access latest --secret="$SECRET" | tr -d '\r' > .env.next
 mv .env.next .env
 gcloud auth configure-docker "${REGISTRY%%/*}" --quiet
 

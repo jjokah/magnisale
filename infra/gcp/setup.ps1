@@ -99,12 +99,14 @@ try {
   Write-Step "Application secrets"
   if (-not (Test-Gcloud secrets describe $SecretName)) {
     $envFile = Join-Path $work "platform.env"
-    @(
+    $lines = @(
       "APP_URL=$AppUrl",
       "POSTGRES_PASSWORD=$(New-RandomHex)",
       "APP_DB_PASSWORD=$(New-RandomHex)",
       "BETTER_AUTH_SECRET=$(New-RandomHex)"
-    ) | Set-Content -Path $envFile
+    )
+    # Unix line endings: the VM reads this file, and a stray \r would end up in every value.
+    [System.IO.File]::WriteAllText($envFile, ($lines -join "`n") + "`n")
     Invoke-Gcloud secrets create $SecretName --replication-policy user-managed --locations $Region --data-file $envFile
     Remove-Item -Path $envFile -Force
   }
