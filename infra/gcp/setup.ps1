@@ -60,7 +60,13 @@ try {
   Write-Step "Checking the project, billing and repository"
   $projectNumber = & $gcloudBin projects describe $Project --format="value(projectNumber)"
   if ($LASTEXITCODE -ne 0 -or -not $projectNumber) { throw "Cannot read project '$Project'. Run: gcloud auth login" }
-  $billing = & $gcloudBin billing projects describe $Project --format="value(billingEnabled)"
+  # The billing API is rate-limited for everyone using gcloud, so allow a retry.
+  foreach ($attempt in 1..4) {
+    $billing = & $gcloudBin billing projects describe $Project --format="value(billingEnabled)" 2>$null
+    if ($LASTEXITCODE -eq 0) { break }
+    Start-Sleep -Seconds 20
+  }
+  if ($LASTEXITCODE -ne 0) { throw "Could not check billing on '$Project'. Try again in a minute." }
   if ($billing -ne "True") { throw "Billing is not enabled on project '$Project'." }
   $repoId = gh api "repos/$GithubRepo" --jq .id
   if ($LASTEXITCODE -ne 0 -or -not $repoId) { throw "Cannot read GitHub repository '$GithubRepo'. Run: gh auth login" }

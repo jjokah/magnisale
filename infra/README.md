@@ -77,8 +77,13 @@ gh variable set CLOUDFLARE_ACCOUNT_ID -R jjokah/magnisale -b "<account id>"
 
 The project needs billing enabled. This starts charges for the VM, disk and public IP address.
 
+The project `magnisale` belongs to your personal Google account. A separate gcloud configuration keeps it apart from other projects' defaults:
+
 ```powershell
+gcloud config configurations create magnisale --no-activate
+$env:CLOUDSDK_ACTIVE_CONFIG_NAME = "magnisale"
 gcloud auth login
+gcloud config set project magnisale
 pwsh infra/gcp/setup.ps1
 ```
 
@@ -105,6 +110,9 @@ gh workflow run deploy.yml -R jjokah/magnisale -f target=platform
 ## Running it
 
 ```powershell
+# Once per terminal, so gcloud uses the Magnisale account and project
+$env:CLOUDSDK_ACTIVE_CONFIG_NAME = "magnisale"
+
 # A shell on the VM
 gcloud compute ssh magnisale-platform --zone europe-west1-b --tunnel-through-iap
 
